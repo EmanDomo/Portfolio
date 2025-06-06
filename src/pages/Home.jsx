@@ -6,6 +6,7 @@ import myphoto from '../assets/mee.png';
 import deped from '../assets/deped.png';
 import ordering from '../assets/sjisc.png';
 import graal from '../assets/graal.png';
+import logo from '../assets/logo.png';
 import '.././styles/Home.css';
 
 const Portfolio = () => {
@@ -60,11 +61,9 @@ const Portfolio = () => {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
-          // Check if element is in viewport (top within offset or bottom visible)
           if (rect.top <= offset && rect.bottom >= offset) {
             current = section;
           }
-          // Special case for last section
           else if (
             section === 'contact' &&
             window.innerHeight + window.scrollY >= document.body.offsetHeight - 50
@@ -86,6 +85,13 @@ const Portfolio = () => {
     <div>
       <Navbar expand="lg" fixed="top" className="shadow-sm" style={{ backgroundColor: '#34D399', color: 'white' }}>
         <Container>
+          {/* <img
+            src={logo}
+            alt="Logo"
+            className="img-fluid"
+            style={{ maxWidth: '40px', height: 'auto', marginRight: '10px' }}
+          /> */}
+
           <Navbar.Brand href="#home" className="fw-bold">Emanuel Domoos</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
