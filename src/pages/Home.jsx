@@ -6,6 +6,7 @@ import myphoto from '../assets/mee.png';
 import deped from '../assets/deped.png';
 import ordering from '../assets/sjisc.png';
 import graal from '../assets/graal.png';
+import poop from '../assets/poop.png';
 import logo from '../assets/logo.png';
 import '.././styles/Home.css';
 
@@ -47,6 +48,10 @@ const Portfolio = () => {
 
   const handleRedirectFacebook = () => {
     window.open('https://www.facebook.com/eman.domoos/', '_blank');
+  };
+
+  const handleRedirectPoop = () => {
+    window.open('https://dailydigestpoopy.netlify.app/', '_blank');
   };
 
   const [activeSection, setActiveSection] = useState('home');
@@ -285,9 +290,12 @@ const Portfolio = () => {
             </Col>
             <Col md={6} lg={4} className='mb-4'>
               <Card className="h-100 shadow-sm">
+                <Card.Img variant="top" src={poop} alt="Project Thumbnail" />
                 <Card.Body>
-                  <Card.Title>Poop Tracker</Card.Title>
-                  <Card.Text>Simple and efficient task management application (Still in development)</Card.Text>
+                  <Card.Title>Daily Digest</Card.Title>
+                  <Card.Text>
+                    A funny little poop tracker to keep tabs on your bathroom trips because even your poop deserves a little attention.
+                    (Still in development)</Card.Text>
                   <div className="mb-3">
                     <Badge key="PostgreSQL" className="tags me-2 mb-1">
                       PostgreSQL
@@ -303,7 +311,7 @@ const Portfolio = () => {
                     </Badge>
                   </div>
                   <div className="d-flex gap-2">
-                    <Button className='inside-btn' size="sm" onClick={handleRedirectSJ}>
+                    <Button className='inside-btn' size="sm" onClick={handleRedirectPoop}>
                       🔗 Visit Website
                     </Button>
                   </div>
