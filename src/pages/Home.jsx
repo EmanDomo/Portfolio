@@ -295,7 +295,7 @@ const Portfolio = () => {
                   <Card.Title>Daily Digest</Card.Title>
                   <Card.Text>
                     A funny little poop tracker to keep tabs on your bathroom trips because even your poop deserves a little attention.
-                    (Still in development)</Card.Text>
+                    </Card.Text>
                   <div className="mb-3">
                     <Badge key="PostgreSQL" className="tags me-2 mb-1">
                       PostgreSQL
