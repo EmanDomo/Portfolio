@@ -335,7 +335,9 @@ const Portfolio = () => {
                 <span style={{ fontSize: '3rem' }}>💼</span>
               </div>
               <h5 className="fw-semibold">LinkedIn</h5>
-              <p style={{ color: '#FFF8F1' }}>n/a</p>
+              <p style={{ color: '#FFF8F1' }}><a href="https://www.linkedin.com/in/emanuel-domoos-30069336b/" target="_blank" rel="noopener noreferrer" style={{ color: '#FFF8F1', textDecoration: 'none' }}>
+                  https://www.linkedin.com/in/emanuel-domoos-30069336b/
+                </a></p>
             </Col>
             <Col md={4} className="text-center mb-4">
               <div className="mb-3">
