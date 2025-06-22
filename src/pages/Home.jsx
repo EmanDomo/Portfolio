@@ -88,7 +88,7 @@ const Portfolio = () => {
 
   return (
     <div>
-      <Navbar expand="lg" fixed="top" className="shadow-sm" style={{ backgroundColor: '#34D399', color: 'white' }}>
+      <Navbar expand="lg" fixed="top" className="shadow-sm" style={{ backgroundColor: '#FFA987', color: '#3E3E3E' }}>
         <Container>
           {/* <img
             src={logo}
@@ -141,7 +141,7 @@ const Portfolio = () => {
         </Container>
       </Navbar>
 
-      <section id="home" className="bg-light py-5" style={{ paddingTop: '100px' }}>
+      <section id="home" className="py-5" style={{ paddingTop: '100px', backgroundColor: '#FFF8F1' }}>
         <Container>
           <Row className="align-items-center min-vh-100">
             <Col lg={12} className="text-center">
@@ -152,24 +152,24 @@ const Portfolio = () => {
                 width="150"
                 height="150"
               />
-              <h1 className="display-4 fw-bold mb-3">Hi! I'm <span style={{ color: '#34D399' }}>Emanuel Domoos</span></h1>
-              <p className="lead mb-4">
+              <h1 className="display-4 fw-bold mb-3" style={{ color: '#3E3E3E' }}>Hi! I'm <span style={{ color: '#FFA987' }}>Emanuel Domoos</span></h1>
+              <p className="lead mb-4" style={{ color: '#3E3E3E' }}>
                 Here, you can check out what I'm working on. I try my best to create things with ❤
               </p>
               <div className="d-flex gap-3 justify-content-center">
-                <Button href="#contact" className="rounded-pill" style={{ backgroundColor: '#0F172A' }}>
+                <Button href="#contact" className="rounded-pill" style={{ backgroundColor: '#3E3E3E' }}>
                   📧 Email
                 </Button>
-                <Button href="#contact" className="rounded-pill" style={{ backgroundColor: '#0F172A' }}>
+                <Button href="#contact" className="rounded-pill" style={{ backgroundColor: '#3E3E3E' }}>
                   💼 LinkedIn
                 </Button>
-                <Button href="#contact" className="rounded-pill" style={{ backgroundColor: '#0F172A' }}>
+                <Button href="#contact" className="rounded-pill" style={{ backgroundColor: '#3E3E3E' }}>
                   <span className="d-flex flex-column flex-sm-row align-items-center justify-content-center gap-1">
                     <FaFacebook size={17} />
                     Facebook
                   </span>
                 </Button>
-                <Button href="#contact" className="rounded-pill" style={{ backgroundColor: '#0F172A' }}>
+                <Button href="#contact" className="rounded-pill" style={{ backgroundColor: '#3E3E3E' }}>
                   <span className="d-flex flex-column flex-sm-row align-items-center justify-content-center gap-1">
                     <FaGithub size={17} />
                     GitHub
@@ -181,7 +181,7 @@ const Portfolio = () => {
         </Container>
       </section>
 
-      <section id="about" className="py-5" style={{ backgroundColor: '#0F172A', color: 'white' }}>
+      <section id="about" className="py-5" style={{ backgroundColor: '#3E3E3E', color: '#FFF8F1' }}>
         <Container>
           <h2 className="text-center fw-bold mb-5">About Me</h2>
           <p
@@ -196,7 +196,7 @@ const Portfolio = () => {
         </Container>
       </section>
 
-      <section id="skills" className="py-5" style={{ backgroundColor: '#0F172A', color: 'white' }}>
+      <section id="skills" className="py-5" style={{ backgroundColor: '#3E3E3E', color: '#FFF8F1' }}>
         <Container>
           <h2 className="text-center fw-bold mb-5">Skills</h2>
           <Row>
@@ -212,9 +212,9 @@ const Portfolio = () => {
           </Row>
         </Container>
       </section>
-      <section id="projects" className="py-5">
+      <section id="projects" className="py-5" style={{ backgroundColor: '#FFF8F1' }}>
         <Container>
-          <h2 className="text-center fw-bold mb-5"> My Projects</h2>
+          <h2 className="text-center fw-bold mb-5" style={{ color: '#3E3E3E' }}> My Projects</h2>
           <Row>
             <Col md={6} lg={4} className='mb-4'>
               <Card className="h-100 shadow-sm">
@@ -315,7 +315,7 @@ const Portfolio = () => {
           </Row>
         </Container>
       </section>
-      <section id="contact" className="py-5" style={{ backgroundColor: '#0F172A', color: 'white' }}>
+      <section id="contact" className="py-5" style={{ backgroundColor: '#3E3E3E', color: '#FFF8F1' }}>
         <Container>
           <h2 className="text-center fw-bold mb-4">Get In Touch</h2>
           <p className="text-center lead mb-5">
@@ -328,22 +328,22 @@ const Portfolio = () => {
                 <span style={{ fontSize: '3rem' }}>📧</span>
               </div>
               <h5 className="fw-semibold">Email</h5>
-              <p style={{ color: 'white' }}>domoosemanuel32@gmail.com</p>
+              <p style={{ color: '#FFF8F1' }}>domoosemanuel32@gmail.com</p>
             </Col>
             <Col md={4} className="text-center mb-4">
               <div className="mb-3">
                 <span style={{ fontSize: '3rem' }}>💼</span>
               </div>
               <h5 className="fw-semibold">LinkedIn</h5>
-              <p style={{ color: 'white' }}>n/a</p>
+              <p style={{ color: '#FFF8F1' }}>n/a</p>
             </Col>
             <Col md={4} className="text-center mb-4">
               <div className="mb-3">
-                <FaGithub style={{ fontSize: '3rem', color: 'white' }} />
+                <FaGithub style={{ fontSize: '3rem', color: '#FFF8F1' }} />
               </div>
               <h5 className="fw-semibold">GitHub</h5>
-              <p style={{ color: 'white' }}>
-                <a href="https://github.com/EmanDomo" target="_blank" rel="noopener noreferrer" style={{ color: 'white', textDecoration: 'none' }}>
+              <p style={{ color: '#FFF8F1' }}>
+                <a href="https://github.com/EmanDomo" target="_blank" rel="noopener noreferrer" style={{ color: '#FFF8F1', textDecoration: 'none' }}>
                   github.com/EmanDomo
                 </a>
               </p>
@@ -354,7 +354,7 @@ const Portfolio = () => {
               size="lg"
               onClick={handleRedirectFacebook}
               className="rounded-pill"
-              style={{ backgroundColor: '#34D399' }}
+              style={{ backgroundColor: '#FFA987' }}
             >
               <span className="d-flex align-items-center justify-content-center gap-2">
                 <FaFacebook size={24} />
@@ -366,9 +366,9 @@ const Portfolio = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-4 bg-white border-top">
+      <footer className="py-4 border-top" style={{ backgroundColor: '#FFF8F1' }}>
         <Container>
-          <p className="text-center text-muted mb-0">
+          <p className="text-center mb-0" style={{ color: '#3E3E3E' }}>
             © 2025 Eman Domoos. All rights reserved.
           </p>
         </Container>
