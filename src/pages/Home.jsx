@@ -8,6 +8,7 @@ import ordering from '../assets/sjisc.png';
 import graal from '../assets/graal.png';
 import poop from '../assets/poop.png';
 import logo from '../assets/logo.png';
+import colorkind from '../assets/colorkind.png';
 import '.././styles/Home.css';
 
 const Portfolio = () => {
@@ -223,13 +224,13 @@ const Portfolio = () => {
                   <Card.Title>Deped Ticketing System</Card.Title>
                   <Card.Text style={{ textAlign: 'justify' }}> A web-based system for DepEd Cabuyao streamlines and automates the process of ticketing and account requests, allowing users to submit, track, and manage their requests efficiently online.</Card.Text>
                   <div className="mb-3">
- <Badge key="React" className="tags me-2 mb-1">React</Badge>
-  <Badge key="Vite" className="tags me-2 mb-1">Vite</Badge>
-  <Badge key="Bootstrap" className="tags me-2 mb-1">Bootstrap</Badge>
+                    <Badge key="React" className="tags me-2 mb-1">React</Badge>
+                    <Badge key="Vite" className="tags me-2 mb-1">Vite</Badge>
+                    <Badge key="Bootstrap" className="tags me-2 mb-1">Bootstrap</Badge>
 
-  <Badge key="Node" className="tags me-2 mb-1">Node</Badge>
-  <Badge key="Express" className="tags me-2 mb-1">Express</Badge>
-  <Badge key="MySQL" className="tags me-2 mb-1">MySQL</Badge>
+                    <Badge key="Node" className="tags me-2 mb-1">Node</Badge>
+                    <Badge key="Express" className="tags me-2 mb-1">Express</Badge>
+                    <Badge key="MySQL" className="tags me-2 mb-1">MySQL</Badge>
                   </div>
                   <div className="d-flex gap-2">
                     <Button className='inside-btn' size="sm" onClick={handleRedirectDeped}>
@@ -247,16 +248,16 @@ const Portfolio = () => {
                   <Card.Text style={{ textAlign: 'justify' }}>
                     An ordering system developed for Saint Jerome Integrated School of Cabuyao that includes features such as cashless payments, inventory tracking, and sales reporting.
                   </Card.Text>
-    <div className="mb-3">
-  <Badge key="React" className="tags me-2 mb-1">React</Badge>
-  <Badge key="Bootstrap" className="tags me-2 mb-1">Bootstrap</Badge>
+                  <div className="mb-3">
+                    <Badge key="React" className="tags me-2 mb-1">React</Badge>
+                    <Badge key="Bootstrap" className="tags me-2 mb-1">Bootstrap</Badge>
 
-  <Badge key="Node" className="tags me-2 mb-1">Node</Badge>
-  <Badge key="Express" className="tags me-2 mb-1">Express</Badge>
-  <Badge key="MySQL" className="tags me-2 mb-1">MySQL</Badge>
+                    <Badge key="Node" className="tags me-2 mb-1">Node</Badge>
+                    <Badge key="Express" className="tags me-2 mb-1">Express</Badge>
+                    <Badge key="MySQL" className="tags me-2 mb-1">MySQL</Badge>
 
-  <Badge key="PayMongo" className="tags me-2 mb-1">PayMongo</Badge>
-</div>
+                    <Badge key="PayMongo" className="tags me-2 mb-1">PayMongo</Badge>
+                  </div>
 
                   <div className="d-flex gap-2">
                     <Button className='inside-btn' size="sm" onClick={handleRedirectSJ}>
@@ -292,17 +293,43 @@ const Portfolio = () => {
                 <Card.Img variant="top" src={poop} alt="Project Thumbnail" />
                 <Card.Body>
                   <Card.Title>Daily Digest</Card.Title>
-                   <Card.Text style={{ textAlign: 'justify' }}>
+                  <Card.Text style={{ textAlign: 'justify' }}>
                     A funny little poop tracker to keep tabs on your bathroom trips because even your poop deserves a little attention.
-                    </Card.Text>
+                  </Card.Text>
                   <div className="mb-3">
- <Badge key="React" className="tags me-2 mb-1">React</Badge>
-  <Badge key="Vite" className="tags me-2 mb-1">Vite</Badge>
-  <Badge key="Bootstrap" className="tags me-2 mb-1">Bootstrap</Badge>
+                    <Badge key="React" className="tags me-2 mb-1">React</Badge>
+                    <Badge key="Vite" className="tags me-2 mb-1">Vite</Badge>
+                    <Badge key="Bootstrap" className="tags me-2 mb-1">Bootstrap</Badge>
 
-  <Badge key="Node" className="tags me-2 mb-1">Node</Badge>
-  <Badge key="Express" className="tags me-2 mb-1">Express</Badge>
-  <Badge key="MySQL" className="tags me-2 mb-1">PostgreSQL</Badge>
+                    <Badge key="Node" className="tags me-2 mb-1">Node</Badge>
+                    <Badge key="Express" className="tags me-2 mb-1">Express</Badge>
+                    <Badge key="MySQL" className="tags me-2 mb-1">PostgreSQL</Badge>
+                  </div>
+                  <div className="d-flex gap-2">
+                    <Button className='inside-btn' size="sm" onClick={handleRedirectPoop}>
+                      🔗 Visit Website
+                    </Button>
+                  </div>
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col md={6} lg={4} className='mb-4'>
+              <Card className="h-100 shadow-sm">
+                <Card.Img variant="top" src={colorkind} alt="Project Thumbnail" />
+                <Card.Body>
+                  <Card.Title>Color Kind</Card.Title>
+                  <Card.Text style={{ textAlign: 'justify' }}>
+                    An accessibility-first web app that helps users generate, test, and save color palettes with real-time WCAG contrast checks and colorblind previews, ensuring inclusive, readable design for everyone—especially colorblind users.(Still in development)
+                  </Card.Text>
+                  <div className="mb-3">
+                    <Badge key="TypeScript" className="tags me-2 mb-1">TypeScript</Badge>
+                    <Badge key="React" className="tags me-2 mb-1">React</Badge>
+                    <Badge key="Vite" className="tags me-2 mb-1">Vite</Badge>
+                    <Badge key="Bootstrap" className="tags me-2 mb-1">Tailwind</Badge>
+
+                    <Badge key="Node" className="tags me-2 mb-1">Node</Badge>
+                    <Badge key="Express" className="tags me-2 mb-1">Express</Badge>
+                    <Badge key="MySQL" className="tags me-2 mb-1">PostgreSQL</Badge>
                   </div>
                   <div className="d-flex gap-2">
                     <Button className='inside-btn' size="sm" onClick={handleRedirectPoop}>
