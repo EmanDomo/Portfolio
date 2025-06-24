@@ -2,7 +2,6 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: #FFF8F1;
 }
 
 html {
@@ -13,11 +12,10 @@ html {
 .nav-link {
   position: relative;
   transition: all 0.3s ease;
-  color: #3E3E3E !important;
 }
 
 .nav-link.active {
-  color: #3E3E3E !important;
+  color: white !important;
   font-weight: bold;
 }
 
@@ -28,7 +26,7 @@ html {
   left: 0;
   right: 0;
   height: 3px;
-  background-color: #3E3E3E;
+  background-color: white;
   border-radius: 3px;
   animation: underline 0.3s ease forwards;
 }
@@ -38,28 +36,30 @@ html {
   to { width: 100%; }
 }
 
+/* body {
+  background-color: red !important;
+} */
+
 .card:hover {
-  background-color: #FFA987;
+  background-color: #9D4EDD;
   transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
-  color: #3E3E3E !important;
+  color: white !important;
 }
 
 .card:hover .inside-btn,
 .card:hover .tags {
   background-color: #ffffff !important;
-  color: #3E3E3E;
+  color: #000000;
   transition: all 0.3s ease;
 }
 
 .card {
   border-radius: 0.5rem;        
-  border-color: #FFA987;       
+  border-color: #9D4EDD;       
   border-width: 4px;            
   border-style: solid;          
-  background-color: #FFF8F1;
-  color: #3E3E3E;
 }
 
 .card .inside-btn:hover {
@@ -68,11 +68,11 @@ html {
 }
 
 .rounded-pill {
-  background-color: #3E3E3E;
-  color: #FFF8F1;
+  background-color: #1A1A2E;
+  color: white;
   transition: all 0.3s ease;
   border-radius: 0.5rem;        
-  border-color: #FFA987;       
+  border-color: #9D4EDD;       
   border-width: 4px;            
   border-style: solid; 
 }
@@ -82,21 +82,18 @@ html {
 .rounded-pill:active {
   transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  background-color: #FFA987 !important;
-  color: #3E3E3E !important;
+  background-color: #9D4EDD !important;
   outline: none !important;
   box-shadow: none !important;
-  border-color: #FFA987;    
+  border-color: #9D4EDD;    
 }
 
 .inside-btn {
   outline: none !important;
   box-shadow: none !important;
   border: none !important;
-  background-color: #FFA987;
-  color: #3E3E3E;
+  background-color: #9D4EDD;
 }
-
 .inside-btn:focus,
 .inside-btn:active {
   outline: none !important;
@@ -105,6 +102,5 @@ html {
 }
 
 .tags {
-  background-color: #F6D186 !important;
-  color: #3E3E3E !important;
+  background-color: #9D4EDD !important;
 }
