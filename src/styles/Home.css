@@ -8,47 +8,57 @@ html {
   scroll-behavior: smooth !important;
 }
 
-/* Add this to your CSS file */
+/* HeroSection.css */
 .hero-section {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  min-height: 100vh;
+  padding-top: 100px;
   position: relative;
+  color: #ffffff;
 }
 
-/* Overlay for better text readability */
-.hero-section::before {
-  content: '';
+.hero-section .background-blur {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(26, 26, 46, 0.7);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   z-index: 1;
 }
 
-.hero-section .container {
-  position: relative;
+.hero-section .dark-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
   z-index: 2;
 }
 
+.hero-section .content-container {
+  position: relative;
+  z-index: 3;
+}
 
-@media (max-width: 768px) {
-  .hero-section {
-    background-attachment: scroll; /* Better performance on mobile */
-    background-size: cover;
-    background-position: center top;
+.hero-section .button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 576px) {
+  .hero-section .button-group {
+    flex-direction: row;
+    gap: 1rem;
   }
 }
 
-@media (max-width: 576px) {
-  .hero-section {
-    background-position: center center;
-  }
-}
 .nav-link {
   position: relative;
   transition: all 0.3s ease;
@@ -81,11 +91,11 @@ html {
 } */
 
 .rounded-pill {
-  background-color: #5F259F;
-  color: white;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
   transition: all 0.3s ease;
   border-radius: 50rem;
-  border: 4px solid #5F259F;
+  border: 4px solid #ffffff;
   outline: none;
   box-shadow: none;
 }
@@ -105,7 +115,7 @@ html {
   outline: none !important;
   box-shadow: none !important;
   border: none !important;
-  background-color: #9D4EDD;
+  background-color: #ffffff;
 }
 .inside-btn:focus,
 .inside-btn:active {
@@ -115,12 +125,101 @@ html {
 }
 
 .tags {
-  background-color: #9D4EDD !important;
+  background-color: #ffffff !important;
 }
 
 /* about section */
-
 /* AboutSection.css */
+
+#about {
+  position: relative;
+  color: #ffffff;
+}
+
+#about .background-blur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  z-index: 1;
+}
+
+#about .dark-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+#about .content-container {
+  position: relative;
+  z-index: 3;
+}
+
+.profile-image-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-bg-circle {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.profile-image {
+  position: relative;
+  z-index: 1;
+}
+
+.decorative-dot-1,
+.decorative-dot-2 {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.decorative-dot-1 {
+  top: 10px;
+  right: 10px;
+}
+
+.decorative-dot-2 {
+  bottom: 10px;
+  left: 10px;
+}
+
+.accent-bar-top {
+  width: 50px;
+  height: 5px;
+  background-color: #f9f9f9;
+  margin-bottom: 1rem;
+}
+
+.text-content {
+  color: #ffffff;
+}
+
+.btn-outline-light {
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
 
 .profile-image-wrapper {
   position: relative;
@@ -227,7 +326,118 @@ html {
   50% { transform: translateY(-10px); }
 }
 
+/* skill section */
+/* SkillsSection.css */
+
+#skills {
+  position: relative;
+  color: #ffffff;
+}
+
+#skills .background-blur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  z-index: 1;
+}
+
+#skills .dark-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+#skills .content-container {
+  position: relative;
+  z-index: 3;
+  color: #ffffff;
+}
+
+#skills .skill-card {
+  text-align: center;
+  height: 100%;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+#skills .skill-icon {
+  font-size: 2rem;
+}
+
+
 /* project section */
+/* ProjectsSection.css */
+#projects {
+  position: relative;
+  color: #ffffff;
+}
+
+#projects .background-blur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  z-index: 1;
+}
+
+#projects .dark-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+#projects .content-container {
+  position: relative;
+  z-index: 3;
+  color: #eaeaea;
+}
+
+#projects .tech-label {
+  font-size: 0.9rem;
+  color: #ffffff;
+}
+
+#projects .project-btn {
+  font-size: 0.875rem;
+}
+
+/* Project Cards with glassmorphism effect */
+#projects .card {
+  border-radius: 0.5rem;
+  border: 2px solid rgba(157, 78, 221, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+#projects .card-title {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+#projects .card-text {
+  color: #eaeaea;
+}
 
 .tech-icon-wrapper:hover {
   transform: scale(1.1) !important;
@@ -235,28 +445,120 @@ html {
 }
 
 .card:hover {
-  /* background-color: #9D4EDD; */
   transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 25px rgba(157, 78, 221, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(157, 78, 221, 0.5);
   transition: all 0.3s ease;
-  /* color: white !important; */
 }
 
 .card:hover .inside-btn,
 .card:hover .tags {
-  /* background-color: #ffffff !important; */
-  /* color: #000000; */
   transition: all 0.3s ease;
 }
 
-.card {
-  border-radius: 0.5rem;        
-  border-color: #9D4EDD;       
-  border-width: 4px;            
-  border-style: solid;          
+.card .inside-btn {
+  color: #000000 !important;
+  background-color: rgb(255, 255, 255);
+  border-color: rgb(255, 255, 255);
+  color: #ffffff;
 }
 
 .card .inside-btn:hover {
-  background-color: #c5c5c5 !important;
-  border-style: solid;
+  background-color: rgb(85, 37, 130) !important;
+  border-color: rgb(85, 37, 130) !important;
+  color: #000000 !important;
+}
+
+/* ContactSection.css */
+/* ContactSection.css */
+
+#contact {
+  position: relative;
+  color: #ffffff;
+}
+
+#contact .background-blur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  z-index: 1;
+}
+
+#contact .dark-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+#contact .content-container {
+  position: relative;
+  z-index: 3;
+  color: #ffffff;
+}
+
+#contact .contact-icon {
+  font-size: 3rem;
+  color: #ffffff;
+}
+
+#contact .contact-header {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+#contact .contact-paragraph {
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+#contact .email-text {
+  font-size: 1.1rem;
+  color: #ffffff;
+}
+
+/* footer */
+
+/* FooterSection.css */
+
+footer {
+  position: relative;
+  color: #ffffff;
+}
+
+footer .background-blur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  z-index: 1;
+}
+
+footer .dark-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+footer .content-container {
+  position: relative;
+  z-index: 3;
+  color: #eaeaea;
 }

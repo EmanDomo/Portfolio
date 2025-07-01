@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FaGithub, FaFacebook } from 'react-icons/fa';
 import { Container, Navbar, Nav, Row, Col, Card, Badge, Button } from 'react-bootstrap';
@@ -29,7 +29,132 @@ import {
 } from 'react-icons/si';
 import { FaHtml5, FaCss3Alt, FaTools } from 'react-icons/fa';
 
+// useScrollFade Hook
+const useScrollFade = (options = {}) => {
+  const {
+    threshold = 0.1,
+    rootMargin = '0px',
+    triggerOnce = false
+  } = options;
+
+  const [isVisible, setIsVisible] = useState(false);
+  const [opacity, setOpacity] = useState(0);
+  const [translateY, setTranslateY] = useState(30);
+  const elementRef = useRef(null);
+
+  useEffect(() => {
+    const element = elementRef.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const { isIntersecting, boundingClientRect } = entry;
+        const elementTop = boundingClientRect.top;
+        const elementBottom = boundingClientRect.bottom;
+        const windowHeight = window.innerHeight;
+
+        if (isIntersecting) {
+          setIsVisible(true);
+
+          // Calculate fade based on element position
+          let fadeValue = 1;
+          let translateValue = 0;
+
+          // Fade in from bottom
+          if (elementTop > windowHeight * 0.8) {
+            fadeValue = Math.max(0, 1 - (elementTop - windowHeight * 0.8) / (windowHeight * 0.2));
+            translateValue = (1 - fadeValue) * 30;
+          }
+          // Fade out from top
+          else if (elementBottom < windowHeight * 0.2) {
+            fadeValue = Math.max(0, elementBottom / (windowHeight * 0.2));
+            translateValue = (1 - fadeValue) * -30;
+          }
+
+          setOpacity(fadeValue);
+          setTranslateY(translateValue);
+        } else {
+          if (!triggerOnce) {
+            setIsVisible(false);
+            setOpacity(0);
+            setTranslateY(elementTop > windowHeight ? 30 : -30);
+          }
+        }
+      },
+      {
+        threshold,
+        rootMargin
+      }
+    );
+
+    observer.observe(element);
+
+    // Additional scroll listener for smooth fade transitions
+    const handleScroll = () => {
+      if (!element) return;
+
+      const rect = element.getBoundingClientRect();
+      const elementTop = rect.top;
+      const elementBottom = rect.bottom;
+      const windowHeight = window.innerHeight;
+
+      let fadeValue = 1;
+      let translateValue = 0;
+
+      // Element is completely above viewport
+      if (elementBottom < 0) {
+        fadeValue = 0;
+        translateValue = -30;
+      }
+      // Element is completely below viewport
+      else if (elementTop > windowHeight) {
+        fadeValue = 0;
+        translateValue = 30;
+      }
+      // Element is entering from bottom
+      else if (elementTop > windowHeight * 0.8) {
+        fadeValue = Math.max(0, 1 - (elementTop - windowHeight * 0.8) / (windowHeight * 0.2));
+        translateValue = (1 - fadeValue) * 30;
+      }
+      // Element is leaving from top
+      else if (elementBottom < windowHeight * 0.2) {
+        fadeValue = Math.max(0, elementBottom / (windowHeight * 0.2));
+        translateValue = (1 - fadeValue) * -30;
+      }
+      // Element is fully in view
+      else {
+        fadeValue = 1;
+        translateValue = 0;
+      }
+
+      setOpacity(fadeValue);
+      setTranslateY(translateValue);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial call
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [threshold, rootMargin, triggerOnce]);
+
+  const style = {
+    opacity,
+    transform: `translateY(${translateY}px)`,
+    transition: 'opacity 0.3s ease-out, transform 0.3s ease-out'
+  };
+
+  return { ref: elementRef, style, isVisible, opacity, translateY };
+};
+
 const Portfolio = () => {
+  // Fade animation hooks for home section elements
+  const profileImageFade = useScrollFade({ threshold: 0.2 });
+  const titleFade = useScrollFade({ threshold: 0.2 });
+  const subtitleFade = useScrollFade({ threshold: 0.2 });
+  const buttonsFade = useScrollFade({ threshold: 0.2 });
 
   const skills = ['JavaScript', 'React', 'Node', 'MySQL', 'Git/Github', 'AI Tools'];
 
@@ -268,123 +393,62 @@ const Portfolio = () => {
         </Container>
       </Navbar>
 
-      <section
-        id="home"
-        className="py-5 hero-section"
-        style={{
-          paddingTop: '100px',
-          backgroundImage: `url(${bg})`
-        }}
-      >
-        <Container>
+      <section id="home" className="py-5 hero-section">
+
+        <div
+          className="background-blur"
+          style={{ backgroundImage: `url(${bg})` }}
+        ></div>
+
+        <div className="dark-overlay"></div>
+
+        <Container className="content-container">
           <Row className="align-items-center min-vh-100">
             <Col lg={12} className="text-center">
-              <img
-                src={homePhoto}
-                alt="Profile"
-                className="rounded-circle mb-4"
-                width="150"
-                height="150"
-              />
-              <h1 className="display-4 fw-bold mb-3" style={{ color: '#EAEAEA' }}>
-                Hi! I'm <span style={{ color: '#9D4EDD' }}>Emanuel Domoos</span>
-              </h1>
-              <p className="lead mb-4" style={{ color: '#EAEAEA' }}>
-                Here, you can check out what I'm working on. I try my best to create things with ❤
-              </p>
-
-              {/* Mobile-first responsive button layout */}
-              <div className="d-flex flex-column flex-sm-row gap-2 gap-sm-3 justify-content-center align-items-center px-3">
-                <Button
-                  href="#contact"
-                  className="rounded-pill w-100 w-sm-auto"
-                  style={{ minWidth: '120px', maxWidth: '200px' }}
-                >
-                  📧 Email
-                </Button>
-                <Button
-                  href="#contact"
-                  className="rounded-pill w-100 w-sm-auto"
-                  style={{ minWidth: '120px', maxWidth: '200px' }}
-                >
-                  💼 LinkedIn
-                </Button>
-                <Button
-                  href="#contact"
-                  className="rounded-pill w-100 w-sm-auto"
-                  style={{ minWidth: '120px', maxWidth: '200px' }}
-                >
-                  <span className="d-flex align-items-center justify-content-center gap-1">
-                    <FaFacebook size={17} />
-                    <span className="d-none d-md-inline">Facebook</span>
-                    <span className="d-inline d-md-none">FB</span>
-                  </span>
-                </Button>
-                <Button
-                  href="#contact"
-                  className="rounded-pill w-100 w-sm-auto"
-                  style={{ minWidth: '120px', maxWidth: '200px' }}
-                >
-                  <span className="d-flex align-items-center justify-content-center gap-1">
-                    <FaGithub size={17} />
-                    <span className="d-none d-md-inline">GitHub</span>
-                    <span className="d-inline d-md-none">Git</span>
-                  </span>
-                </Button>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-      </section>
-
-      <section id="about" className="py-5" style={{ backgroundColor: '#FFFFFF', color: '#000000' }}>
-        <Container>
-          <h2 className="text-center fw-bold mb-5">About Me</h2>
-          <Row className="align-items-center">
-            <Col md={4} className="text-center mb-4">
-              <div className="profile-image-wrapper">
-                <div className="profile-bg-circle"></div>
-
+              <div ref={profileImageFade.ref} style={profileImageFade.style}>
                 <img
-                  src={myphoto}
+                  src={homePhoto}
                   alt="Profile"
-                  className="rounded-circle mb-4 profile-image"
-                  width="300"
-                  height="300"
+                  className="rounded-circle mb-4"
+                  width="150"
+                  height="150"
                 />
-
-                <div className="decorative-dot-1"></div>
-                <div className="decorative-dot-2"></div>
               </div>
-            </Col>
 
-            <Col md={8}>
-              <div className="position-relative">
-                <div className="accent-bar-top"></div>
+              <div ref={titleFade.ref} style={titleFade.style}>
+                <h1 className="display-4 fw-bold mb-3" style={{ color: '#FFFFFF' }}>
+                  Hi! I'm <span style={{ color: '#9D4EDD' }}>Emanuel Domoos</span>
+                </h1>
+              </div>
 
-                <div className="mb-4">
-                  <p className="text-content">
-                    I am a graduate of <strong>Bachelor of Science in Information Technology</strong> from the University of Cabuyao (UC), seeking an entry-level web developer position. I am willing to gain practical experience, develop my skills on the job, and contribute to team projects. Motivated to learn and grow professionally, I aim to build a strong foundation in web development.
-                  </p>
-                </div>
+              <div ref={subtitleFade.ref} style={subtitleFade.style}>
+                <p className="lead mb-4" style={{ color: '#FFFFFF' }}>
+                  Here, you can check out what I'm working on. I try my best to create things with ❤
+                </p>
+              </div>
 
-                <div className="mb-4">
-                  <p className="text-content">
-                    I have knowledge in <strong>HTML, CSS, and JavaScript</strong>, with hands-on experience in building full-stack web applications using React, Node.js, Express, and MySQL. I am also familiar with version control systems such as Git and GitHub, including collaborative workflows, branching strategies, and pull request management. Additionally, I am skilled in using productivity tools like Microsoft Office Suite (Word, Excel, and PowerPoint) for documentation, data analysis, and presentations. I am currently exploring AI platforms such as ChatGPT and OpenAI, with the aim of using these tools to assist with coding, debugging, research, and enhancing overall productivity.
-                  </p>
-                  <p>
-                    Check my resume for more details →{''}
-                    <a
-                      href="/Emanuel-Domoos-Resume.pdf"
-                      download
-                      className="btn btn-outline-primary btn-sm ms-2 rounded-pill"
-                    >
-                      Download Resume
-                    </a>
-
-                  </p>
-
-
+              <div ref={buttonsFade.ref} style={buttonsFade.style}>
+                <div className="button-group">
+                  <Button href="#contact" className="rounded-pill w-100 w-sm-auto" style={{ minWidth: '120px', maxWidth: '200px' }}>
+                    📧 Email
+                  </Button>
+                  <Button href="#contact" className="rounded-pill w-100 w-sm-auto" style={{ minWidth: '120px', maxWidth: '200px' }}>
+                    💼 LinkedIn
+                  </Button>
+                  <Button href="#contact" className="rounded-pill w-100 w-sm-auto" style={{ minWidth: '120px', maxWidth: '200px' }}>
+                    <span className="d-flex align-items-center justify-content-center gap-1">
+                      <FaFacebook size={17} />
+                      <span className="d-none d-md-inline">Facebook</span>
+                      <span className="d-inline d-md-none">FB</span>
+                    </span>
+                  </Button>
+                  <Button href="#contact" className="rounded-pill w-100 w-sm-auto" style={{ minWidth: '120px', maxWidth: '200px' }}>
+                    <span className="d-flex align-items-center justify-content-center gap-1">
+                      <FaGithub size={17} />
+                      <span className="d-none d-md-inline">GitHub</span>
+                      <span className="d-inline d-md-none">Git</span>
+                    </span>
+                  </Button>
                 </div>
               </div>
             </Col>
@@ -392,16 +456,78 @@ const Portfolio = () => {
         </Container>
       </section>
 
+<section id="about" className="py-5">
+  <div
+    className="background-blur"
+    style={{ backgroundImage: `url(${bg})` }}
+  ></div>
+  <div className="dark-overlay"></div>
+  <Container className="content-container">
+    <h2 className="text-center fw-bold mb-5">About Me</h2>
+    <Row className="align-items-center">
+      <Col md={4} className="text-center mb-4">
+        <div className="profile-image-wrapper">
+          <div className="profile-bg-circle"></div>
+          <img
+            src={myphoto}
+            alt="Profile"
+            className="rounded-circle mb-4 profile-image"
+            width="300"
+            height="300"
+          />
+          <div className="decorative-dot-1"></div>
+          <div className="decorative-dot-2"></div>
+        </div>
+      </Col>
 
-      <section id="skills" className="py-5" style={{ backgroundColor: '#FFFFFF', color: '#000000' }}>
-        <Container>
+      <Col md={8}>
+        <div className="position-relative">
+          <div className="accent-bar-top"></div>
+
+          <div className="mb-4">
+            <p className="text-content" style={{textAlign: 'justify', textJustify: 'inter-word', hyphens: 'auto'}}>
+              I am a graduate of <strong>Bachelor of Science in Information Technology</strong> from the University of Cabuyao (UC), seeking an entry-level web developer position. I am motivated to gain practical experience, develop my skills on the job, and contribute to team projects. I am committed to continuous learning and aim to build a strong foundation in web development.
+            </p>
+          </div>
+
+          <div className="mb-4">
+            <p className="text-content" style={{textAlign: 'justify', textJustify: 'inter-word', hyphens: 'auto'}}>
+              I have knowledge in <strong>HTML, CSS, and JavaScript</strong>, with hands-on experience in building full-stack web applications using React, Node.js, Express, and MySQL. I am also familiar with version control systems such as Git and GitHub, including collaborative workflows, branching strategies, and pull request management. Additionally, I am skilled in using productivity tools like Microsoft Office Suite (Word, Excel, and PowerPoint) for documentation, data analysis, and presentations. I am currently exploring AI platforms such as ChatGPT and OpenAI to assist with coding, debugging, research, and enhancing overall productivity.
+            </p>
+
+            <p className="text-start">
+              Check my resume →
+              <a
+                href="/Emanuel-Domoos-Resume.pdf"
+                download
+                className="btn btn-sm ms-2 rounded-pill"
+              >
+                Download Resume
+              </a>
+            </p>
+          </div>
+        </div>
+      </Col>
+    </Row>
+  </Container>
+</section>
+
+      <section id="skills" className="py-5">
+        <div
+          className="background-blur"
+          style={{ backgroundImage: `url(${bg})` }}
+        ></div>
+
+        <div className="dark-overlay"></div>
+
+        <Container className="content-container">
           <h2 className="text-center fw-bold mb-5">Skills</h2>
           <Row>
             {skills.map((skill, index) => (
               <Col sm={6} md={4} lg={3} key={skill} className="mb-3">
-                <Card className="text-center h-100 shadow-sm">
+                <Card className="skill-card">
                   <Card.Body className="d-flex align-items-center justify-content-center gap-3">
-                    <div style={{ fontSize: '2rem' }}>
+                    <div className="skill-icon">
                       {techIcons[skill] || <FaTools className="text-secondary" />}
                     </div>
                     <Card.Text className="fw-medium mb-0">{skill}</Card.Text>
@@ -413,12 +539,21 @@ const Portfolio = () => {
         </Container>
       </section>
 
-      <section id="projects" className="py-5" style={{ backgroundColor: '#1A1A2E' }}>
-        <Container>
-          <h2 className="text-center fw-bold mb-5" style={{ color: '#EAEAEA' }}> My Projects</h2>
+      <section id="projects" className="py-5">
+        {/* Blurred background layer */}
+        <div
+          className="background-blur"
+          style={{ backgroundImage: `url(${bg})` }}
+        ></div>
+
+        {/* Dark overlay */}
+        <div className="dark-overlay"></div>
+
+        <Container className="content-container">
+          <h2 className="text-center fw-bold mb-5">My Projects</h2>
           <Row>
             {/* DepEd Ticketing System */}
-            <Col md={6} lg={4} className='mb-4'>
+            <Col md={6} lg={4} className="mb-4">
               <Card className="h-100 shadow-sm">
                 <Card.Img variant="top" src={deped} alt="Project Thumbnail" />
                 <Card.Body>
@@ -426,12 +561,10 @@ const Portfolio = () => {
                   <Card.Text style={{ textAlign: 'justify' }}>
                     A web-based system for DepEd Cabuyao streamlines and automates the process of ticketing and account requests, allowing users to submit, track, and manage their requests efficiently online.
                   </Card.Text>
-                  <p className="mt-3 mb-1 fw-semibold" style={{ fontSize: '0.9rem', color: '#9D4EDD' }}>
-                    Technologies Used:
-                  </p>
+                  <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
                   {renderTechIcons(['JavaScript', 'React', 'Vite', 'Bootstrap', 'Node', 'Express', 'MySQL'])}
                   <div className="d-flex gap-2">
-                    <Button className='inside-btn' size="sm" onClick={handleRedirectDeped}>
+                    <Button className="inside-btn project-btn" size="sm" onClick={handleRedirectDeped}>
                       🔗 See It Live
                     </Button>
                   </div>
@@ -440,7 +573,7 @@ const Portfolio = () => {
             </Col>
 
             {/* Cashless Ordering System */}
-            <Col md={6} lg={4} className='mb-4'>
+            <Col md={6} lg={4} className="mb-4">
               <Card className="h-100 shadow-sm">
                 <Card.Img variant="top" src={ordering} alt="Project Thumbnail" />
                 <Card.Body>
@@ -448,12 +581,10 @@ const Portfolio = () => {
                   <Card.Text style={{ textAlign: 'justify' }}>
                     An ordering system developed for Saint Jerome Integrated School of Cabuyao that includes features such as cashless payments, inventory tracking, and sales reporting.
                   </Card.Text>
-                  <p className="mt-3 mb-1 fw-semibold" style={{ fontSize: '0.9rem', color: '#9D4EDD' }}>
-                    Technologies Used:
-                  </p>
+                  <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
                   {renderTechIcons(['JavaScript', 'React', 'Bootstrap', 'Node', 'Express', 'MySQL', 'PayMongo'])}
                   <div className="d-flex gap-2">
-                    <Button className='inside-btn' size="sm" onClick={handleRedirectSJ}>
+                    <Button className="inside-btn project-btn" size="sm" onClick={handleRedirectSJ}>
                       🔗 See It Live
                     </Button>
                   </div>
@@ -462,7 +593,7 @@ const Portfolio = () => {
             </Col>
 
             {/* Graal Era Calculator */}
-            <Col md={6} lg={4} className='mb-4'>
+            <Col md={6} lg={4} className="mb-4">
               <Card className="h-100 shadow-sm">
                 <Card.Img variant="top" src={graal} alt="Project Thumbnail" />
                 <Card.Body>
@@ -470,12 +601,10 @@ const Portfolio = () => {
                   <Card.Text style={{ textAlign: 'justify' }}>
                     Designed for Graal Era players, this ratio calculator makes item trading easier, faster, and more accurate by reducing human errors and improving overall trading efficiency.
                   </Card.Text>
-                  <p className="mt-3 mb-1 fw-semibold" style={{ fontSize: '0.9rem', color: '#9D4EDD' }}>
-                    Technologies Used:
-                  </p>
+                  <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
                   {renderTechIcons(['HTML', 'JavaScript', 'CSS'])}
                   <div className="d-flex gap-2">
-                    <Button className='inside-btn' size="sm" onClick={handleRedirectGraal}>
+                    <Button className="inside-btn project-btn" size="sm" onClick={handleRedirectGraal}>
                       🔗 See It Live
                     </Button>
                   </div>
@@ -484,7 +613,7 @@ const Portfolio = () => {
             </Col>
 
             {/* Daily Digest */}
-            <Col md={6} lg={4} className='mb-4'>
+            <Col md={6} lg={4} className="mb-4">
               <Card className="h-100 shadow-sm">
                 <Card.Img variant="top" src={poop} alt="Project Thumbnail" />
                 <Card.Body>
@@ -492,12 +621,10 @@ const Portfolio = () => {
                   <Card.Text style={{ textAlign: 'justify' }}>
                     A funny little poop tracker to keep tabs on your bathroom trips because even your poop deserves a little attention.
                   </Card.Text>
-                  <p className="mt-3 mb-1 fw-semibold" style={{ fontSize: '0.9rem', color: '#9D4EDD' }}>
-                    Technologies Used:
-                  </p>
+                  <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
                   {renderTechIcons(['JavaScript', 'React', 'Vite', 'Bootstrap', 'Node', 'Express', 'PostgreSQL'])}
                   <div className="d-flex gap-2">
-                    <Button className='inside-btn' size="sm" onClick={handleRedirectPoop}>
+                    <Button className="inside-btn project-btn" size="sm" onClick={handleRedirectPoop}>
                       🔗 See It Live
                     </Button>
                   </div>
@@ -506,7 +633,7 @@ const Portfolio = () => {
             </Col>
 
             {/* Color Kind */}
-            <Col md={6} lg={4} className='mb-4'>
+            <Col md={6} lg={4} className="mb-4">
               <Card className="h-100 shadow-sm">
                 <Card.Img variant="top" src={colorkind} alt="Project Thumbnail" />
                 <Card.Body>
@@ -514,12 +641,10 @@ const Portfolio = () => {
                   <Card.Text style={{ textAlign: 'justify' }}>
                     An accessibility-first web app that helps users generate, test, and save color palettes with real-time WCAG contrast checks and colorblind previews, ensuring inclusive, readable design for everyone—especially colorblind users. (Still in development)
                   </Card.Text>
-                  <p className="mt-3 mb-1 fw-semibold" style={{ fontSize: '0.9rem', color: '#9D4EDD' }}>
-                    Technologies Used:
-                  </p>
+                  <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
                   {renderTechIcons(['TypeScript', 'React', 'Vite', 'Tailwind', 'Node', 'Express', 'PostgreSQL'])}
                   <div className="d-flex gap-2">
-                    <Button className='inside-btn' size="sm" onClick={handleRedirectPoop}>
+                    <Button className="inside-btn project-btn" size="sm" onClick={handleRedirectPoop}>
                       🔗 See It Live
                     </Button>
                   </div>
@@ -530,79 +655,103 @@ const Portfolio = () => {
         </Container>
       </section>
 
-      <section id="contact" className="py-5" style={{ backgroundColor: '#FFFFFF', color: '#000000' }}>
-        <Container>
-          <h2 className="text-center fw-bold mb-4">Get In Touch</h2>
-          <p className="text-center lead mb-5">
-            I'm always interested in new opportunities and collaborations.
-          </p>
+<section id="contact" className="py-5">
+  <div
+    className="background-blur"
+    style={{ backgroundImage: `url(${bg})` }}
+  ></div>
 
-          <Row className="mb-5">
-            <Col md={4} className="text-center mb-4 d-flex flex-column">
-              <div className="mb-3">
-                <FaFacebook style={{ fontSize: '3rem', color: '#000000' }} />
-              </div>
-              <h5 className="fw-semibold">Facebook</h5>
-              <p style={{ color: '#000000' }} className="mb-3">Connect with me on Facebook</p>
-              <div className="mt-auto">
-                <Button
-                  className="rounded-pill px-4"
-                  onClick={() => window.open('https://facebook.com', '_blank')}
-                >
-                  Visit Facebook
-                </Button>
-              </div>
-            </Col>
-            <Col md={4} className="text-center mb-4 d-flex flex-column">
-              <div className="mb-3">
-                <span style={{ fontSize: '3rem' }}>💼</span>
-              </div>
-              <h5 className="fw-semibold">LinkedIn</h5>
-              <p style={{ color: '#000000' }} className="mb-3">Professional networking</p>
-              <div className="mt-auto">
-                <Button
+  <div className="dark-overlay"></div>
 
-                  className="rounded-pill px-4"
-                  onClick={() => window.open('https://www.linkedin.com/in/emanuel-domoos-30069336b/', '_blank')}
-                >
-                  Visit LinkedIn
-                </Button>
-              </div>
-            </Col>
-            <Col md={4} className="text-center mb-4 d-flex flex-column">
-              <div className="mb-3">
-                <FaGithub style={{ fontSize: '3rem', color: '#000000' }} />
-              </div>
-              <h5 className="fw-semibold">GitHub</h5>
-              <p style={{ color: '#000000' }} className="mb-3">Check out my projects</p>
-              <div className="mt-auto">
-                <Button
-                  className="rounded-pill px-4"
-                  onClick={() => window.open('https://github.com/EmanDomo', '_blank')}
-                >
-                  Visit GitHub
-                </Button>
-              </div>
-            </Col>
-          </Row>
+  <Container className="content-container">
+    <h2 className="text-center fw-bold mb-4">Get In Touch</h2>
+    <p className="text-center lead mb-5">
+      I'm always interested in new opportunities and collaborations.
+    </p>
 
-          <div className="text-center">
-            <div className="mb-3">
-              <span style={{ fontSize: '3rem' }}>📧</span>
-            </div>
-            <h5 className="fw-semibold">Email</h5>
-            <p style={{ color: '#666666', fontSize: '1.1rem' }}>
-              domoosemanuel32@gmail.com
-            </p>
-          </div>
-        </Container>
-      </section>
+    <Row className="mb-5">
+      {/* Facebook */}
+      <Col md={4} className="text-center mb-4 d-flex flex-column">
+        <div className="mb-3">
+          <FaFacebook className="contact-icon" />
+        </div>
+        <h5 className="contact-header">Facebook</h5>
+        <p className="contact-paragraph">Connect with me on Facebook</p>
+        <div className="mt-auto">
+          <Button
+            className="rounded-pill px-4"
+            variant="light"
+            onClick={() => window.open('https://facebook.com', '_blank')}
+          >
+            Visit Facebook
+          </Button>
+        </div>
+      </Col>
 
-      <footer className="py-4 border-top" style={{ backgroundColor: '#1A1A2E' }}>
-        <Container>
-          <p className="text-center mb-0" style={{ color: '#EAEAEA' }}>
-            © 2025 Eman Domoos. All rights reserved.
-          </p>
+      {/* LinkedIn */}
+      <Col md={4} className="text-center mb-4 d-flex flex-column">
+        <div className="mb-3">
+          <span className="contact-icon">💼</span>
+        </div>
+        <h5 className="contact-header">LinkedIn</h5>
+        <p className="contact-paragraph">Professional networking</p>
+        <div className="mt-auto">
+          <Button
+            className="rounded-pill px-4"
+            variant="light"
+            onClick={() =>
+              window.open(
+                'https://www.linkedin.com/in/emanuel-domoos-30069336b/',
+                '_blank'
+              )
+            }
+          >
+            Visit LinkedIn
+          </Button>
+        </div>
+      </Col>
+
+      {/* GitHub */}
+      <Col md={4} className="text-center mb-4 d-flex flex-column">
+        <div className="mb-3">
+          <FaGithub className="contact-icon" />
+        </div>
+        <h5 className="contact-header">GitHub</h5>
+        <p className="contact-paragraph">Check out my projects</p>
+        <div className="mt-auto">
+          <Button
+            className="rounded-pill px-4"
+            variant="light"
+            onClick={() => window.open('https://github.com/EmanDomo', '_blank')}
+          >
+            Visit GitHub
+          </Button>
+        </div>
+      </Col>
+    </Row>
+
+    {/* Email section */}
+    <div className="text-center">
+      <div className="mb-3">
+        <span className="contact-icon">📧</span>
+      </div>
+      <h5 className="contact-header">Email</h5>
+      <p className="email-text">domoosemanuel32@gmail.com</p>
+    </div>
+  </Container>
+</section>
+
+
+
+      <footer className="py-4 border-top">
+        <div
+          className="background-blur"
+          style={{ backgroundImage: `url(${bg})` }}
+        ></div>
+        <div className="dark-overlay"></div>
+
+        <Container className="content-container">
+          <p className="text-center mb-0">© 2025 Eman Domoos. All rights reserved.</p>
         </Container>
       </footer>
 
