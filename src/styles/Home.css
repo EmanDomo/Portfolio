@@ -8,7 +8,47 @@ html {
   scroll-behavior: smooth !important;
 }
 
-/* Home.css */
+/* Add this to your CSS file */
+.hero-section {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Overlay for better text readability */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(26, 26, 46, 0.7);
+  z-index: 1;
+}
+
+.hero-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+
+@media (max-width: 768px) {
+  .hero-section {
+    background-attachment: scroll; /* Better performance on mobile */
+    background-size: cover;
+    background-position: center top;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-section {
+    background-position: center center;
+  }
+}
 .nav-link {
   position: relative;
   transition: all 0.3s ease;
@@ -40,52 +80,25 @@ html {
   background-color: red !important;
 } */
 
-.card:hover {
-  background-color: #9D4EDD;
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-  color: white !important;
-}
-
-.card:hover .inside-btn,
-.card:hover .tags {
-  background-color: #ffffff !important;
-  color: #000000;
-  transition: all 0.3s ease;
-}
-
-.card {
-  border-radius: 0.5rem;        
-  border-color: #9D4EDD;       
-  border-width: 4px;            
-  border-style: solid;          
-}
-
-.card .inside-btn:hover {
-  background-color: #c5c5c5 !important;
-  border-style: solid;
-}
-
 .rounded-pill {
-  background-color: #1A1A2E;
+  background-color: #5F259F;
   color: white;
   transition: all 0.3s ease;
-  border-radius: 0.5rem;        
-  border-color: #9D4EDD;       
-  border-width: 4px;            
-  border-style: solid; 
+  border-radius: 50rem;
+  border: 4px solid #5F259F;
+  outline: none;
+  box-shadow: none;
 }
 
 .rounded-pill:hover,
 .rounded-pill:focus,
 .rounded-pill:active {
   transform: scale(1.05);
+  background-color: #5F259F;
+  color: white;
+  border-color: #5F259F;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  background-color: #9D4EDD !important;
   outline: none !important;
-  box-shadow: none !important;
-  border-color: #9D4EDD;    
 }
 
 .inside-btn {
@@ -103,4 +116,147 @@ html {
 
 .tags {
   background-color: #9D4EDD !important;
+}
+
+/* about section */
+
+/* AboutSection.css */
+
+.profile-image-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-bg-circle {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  opacity: 0.1;
+}
+
+.profile-image {
+  z-index: 2;
+  border: 4px solid #667eea;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.profile-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+}
+
+.decorative-dot-1,
+.decorative-dot-2 {
+  position: absolute;
+  border-radius: 50%;
+  z-index: 3;
+  animation: float 3s ease-in-out infinite;
+}
+
+.decorative-dot-1 {
+  width: 20px;
+  height: 20px;
+  background: #667eea;
+  top: 20px;
+  right: 20px;
+}
+
+.decorative-dot-2 {
+  width: 15px;
+  height: 15px;
+  background: #764ba2;
+  bottom: 40px;
+  left: 10px;
+  animation-delay: 1.5s;
+}
+
+.accent-bar-top {
+  position: absolute;
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  top: -20px;
+  left: 0;
+  border-radius: 2px;
+}
+
+.accent-line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  border-radius: 2px;
+}
+
+.gradient-line-1 {
+  background: linear-gradient(180deg, #667eea, #764ba2);
+}
+
+.gradient-line-2 {
+  background: linear-gradient(180deg, #764ba2, #667eea);
+}
+
+.skill-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  opacity: 0.9;
+  color: white;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.skill-badge:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* project section */
+
+.tech-icon-wrapper:hover {
+  transform: scale(1.1) !important;
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.card:hover {
+  /* background-color: #9D4EDD; */
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  /* color: white !important; */
+}
+
+.card:hover .inside-btn,
+.card:hover .tags {
+  /* background-color: #ffffff !important; */
+  /* color: #000000; */
+  transition: all 0.3s ease;
+}
+
+.card {
+  border-radius: 0.5rem;        
+  border-color: #9D4EDD;       
+  border-width: 4px;            
+  border-style: solid;          
+}
+
+.card .inside-btn:hover {
+  background-color: #c5c5c5 !important;
+  border-style: solid;
 }

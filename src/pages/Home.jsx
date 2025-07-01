@@ -2,38 +2,157 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FaGithub, FaFacebook } from 'react-icons/fa';
 import { Container, Navbar, Nav, Row, Col, Card, Badge, Button } from 'react-bootstrap';
+import bg from '../assets/bg.jpg';
 import myphoto from '../assets/mee.png';
+import homePhoto from '../assets/home_me.png';
 import deped from '../assets/deped.png';
 import ordering from '../assets/sjisc.png';
 import graal from '../assets/graal.png';
 import poop from '../assets/poop.png';
 import logo from '../assets/logo.png';
 import colorkind from '../assets/colorkind.png';
+import paymongo from '../assets/paymongo_logo.png';
 import '.././styles/Home.css';
+import {
+  SiReact,
+  SiJavascript,
+  SiNodedotjs,
+  SiMysql,
+  SiBootstrap,
+  SiVite,
+  SiExpress,
+  SiPostgresql,
+  SiTypescript,
+  SiTailwindcss,
+  SiGit,
+  SiOpenai
+} from 'react-icons/si';
+import { FaHtml5, FaCss3Alt, FaTools } from 'react-icons/fa';
 
 const Portfolio = () => {
+
   const skills = ['JavaScript', 'React', 'Node', 'MySQL', 'Git/Github', 'AI Tools'];
 
-  const projects = [
-    {
-      title: 'DepEd Ticketing System',
-      description: 'Simple and efficient task management application',
-      tags: ['JavaScript', 'CSS', 'Local Storage'],
-      demo: '#https://ticketing.sdocabuyao.com/',
-    },
-    {
-      title: 'Cashless Ordering System',
-      description: 'A modern online store built with React and Node.js',
-      tags: ['React', 'Node.js', 'MySQL'],
-      demo: '#',
-    },
-    {
-      title: 'Weather Dashboard',
-      description: 'Real-time weather information with clean UI',
-      tags: ['React', 'API Integration', 'CSS'],
-      demo: '#',
-    }
-  ];
+  //techIcons
+  const techIcons = {
+    'React': <SiReact className="text-info" />,
+    'JavaScript': <SiJavascript className="text-warning" />,
+    'HTML': <FaHtml5 className="text-danger" />,
+    'CSS': <FaCss3Alt className="text-primary" />,
+    'Node': <SiNodedotjs className="text-success" />,
+    'Express': <SiExpress className="text-dark" />,
+    'MySQL': <SiMysql className="text-info" />,
+    'PostgreSQL': <SiPostgresql className="text-primary" />,
+    'Bootstrap': <SiBootstrap className="text-primary" />,
+    'Vite': <SiVite className="text-warning" />,
+    'TypeScript': <SiTypescript className="text-primary" />,
+    'Tailwind': <SiTailwindcss className="text-info" />,
+    'Git/Github': <SiGit className="text-danger" />,
+    'AI Tools': <SiOpenai className="text-success" />,
+    'PayMongo': (
+      <img
+        src={paymongo}
+        alt="PayMongo"
+        style={{
+          width: '24px',
+          height: '24px',
+          objectFit: 'contain'
+        }}
+      />
+    )
+  };
+
+  const renderTechIcons = (technologies) => {
+    const showTooltip = (container) => {
+      const tooltip = container.querySelector('.tech-tooltip');
+      const icon = container.querySelector('.tech-icon-wrapper');
+      if (tooltip && icon) {
+        tooltip.style.opacity = '1';
+        tooltip.style.visibility = 'visible';
+        icon.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+        icon.style.transform = 'scale(1.1)';
+      }
+    };
+
+    const hideTooltip = (container) => {
+      const tooltip = container.querySelector('.tech-tooltip');
+      const icon = container.querySelector('.tech-icon-wrapper');
+      if (tooltip && icon) {
+        tooltip.style.opacity = '0';
+        tooltip.style.visibility = 'hidden';
+        icon.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+        icon.style.transform = 'scale(1)';
+      }
+    };
+
+    return (
+      <div className="mb-3 d-flex flex-wrap gap-2">
+        {technologies.map((tech, index) => (
+          <div
+            key={index}
+            className="position-relative tech-icon-container"
+            style={{ display: 'inline-block' }}
+            onMouseEnter={(e) => showTooltip(e.currentTarget)}
+            onMouseLeave={(e) => hideTooltip(e.currentTarget)}
+          >
+            <span
+              className="tech-icon-wrapper d-inline-flex align-items-center justify-content-center"
+              style={{
+                fontSize: '24px',
+                width: '40px',
+                height: '40px',
+                borderRadius: '8px',
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                transition: 'all 0.3s ease',
+                cursor: 'pointer'
+              }}
+            >
+              {techIcons[tech] || <span style={{ fontSize: '12px' }}>{tech}</span>}
+            </span>
+
+            {/* Tooltip */}
+            <div
+              className="tech-tooltip"
+              style={{
+                position: 'absolute',
+                bottom: '120%',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                color: 'white',
+                padding: '6px 10px',
+                borderRadius: '6px',
+                fontSize: '12px',
+                fontWeight: '500',
+                whiteSpace: 'nowrap',
+                opacity: '0',
+                visibility: 'hidden',
+                transition: 'opacity 0.2s ease, visibility 0.2s ease',
+                zIndex: 1000,
+                pointerEvents: 'none',
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)'
+              }}
+            >
+              {tech}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '100%',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  width: '0',
+                  height: '0',
+                  borderLeft: '5px solid transparent',
+                  borderRight: '5px solid transparent',
+                  borderTop: '5px solid rgba(0, 0, 0, 0.9)'
+                }}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  };
 
   const handleRedirectDeped = () => {
     window.open('https://ticketing.sdocabuyao.com/', '_blank');
@@ -98,7 +217,14 @@ const Portfolio = () => {
             style={{ maxWidth: '40px', height: 'auto', marginRight: '10px' }}
           /> */}
 
-          <Navbar.Brand href="#home" className="fw-bold">Emanuel Domoos</Navbar.Brand>
+          <Navbar.Brand
+            href="#home"
+            className="fw-bold"
+            style={{ color: '#FFFFFF' }}
+          >
+            Emanuel Domoos
+          </Navbar.Brand>
+
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto" activeKey={activeSection}>
@@ -142,38 +268,67 @@ const Portfolio = () => {
         </Container>
       </Navbar>
 
-      <section id="home" className="py-5" style={{ paddingTop: '100px', backgroundColor: '#1A1A2E' }}>
+      <section
+        id="home"
+        className="py-5 hero-section"
+        style={{
+          paddingTop: '100px',
+          backgroundImage: `url(${bg})`
+        }}
+      >
         <Container>
           <Row className="align-items-center min-vh-100">
             <Col lg={12} className="text-center">
               <img
-                src={myphoto}
+                src={homePhoto}
                 alt="Profile"
                 className="rounded-circle mb-4"
                 width="150"
                 height="150"
               />
-              <h1 className="display-4 fw-bold mb-3" style={{ color: '#EAEAEA' }}>Hi! I'm <span style={{ color: '#9D4EDD' }}>Emanuel Domoos</span></h1>
+              <h1 className="display-4 fw-bold mb-3" style={{ color: '#EAEAEA' }}>
+                Hi! I'm <span style={{ color: '#9D4EDD' }}>Emanuel Domoos</span>
+              </h1>
               <p className="lead mb-4" style={{ color: '#EAEAEA' }}>
                 Here, you can check out what I'm working on. I try my best to create things with ❤
               </p>
-              <div className="d-flex gap-3 justify-content-center">
-                <Button href="#contact" className="rounded-pill" style={{ backgroundColor: '#C77DFF' }}>
+
+              {/* Mobile-first responsive button layout */}
+              <div className="d-flex flex-column flex-sm-row gap-2 gap-sm-3 justify-content-center align-items-center px-3">
+                <Button
+                  href="#contact"
+                  className="rounded-pill w-100 w-sm-auto"
+                  style={{ minWidth: '120px', maxWidth: '200px' }}
+                >
                   📧 Email
                 </Button>
-                <Button href="#contact" className="rounded-pill" style={{ backgroundColor: '#C77DFF' }}>
+                <Button
+                  href="#contact"
+                  className="rounded-pill w-100 w-sm-auto"
+                  style={{ minWidth: '120px', maxWidth: '200px' }}
+                >
                   💼 LinkedIn
                 </Button>
-                <Button href="#contact" className="rounded-pill" style={{ backgroundColor: '#C77DFF' }}>
-                  <span className="d-flex flex-column flex-sm-row align-items-center justify-content-center gap-1">
+                <Button
+                  href="#contact"
+                  className="rounded-pill w-100 w-sm-auto"
+                  style={{ minWidth: '120px', maxWidth: '200px' }}
+                >
+                  <span className="d-flex align-items-center justify-content-center gap-1">
                     <FaFacebook size={17} />
-                    Facebook
+                    <span className="d-none d-md-inline">Facebook</span>
+                    <span className="d-inline d-md-none">FB</span>
                   </span>
                 </Button>
-                <Button href="#contact" className="rounded-pill" style={{ backgroundColor: '#C77DFF' }}>
-                  <span className="d-flex flex-column flex-sm-row align-items-center justify-content-center gap-1">
+                <Button
+                  href="#contact"
+                  className="rounded-pill w-100 w-sm-auto"
+                  style={{ minWidth: '120px', maxWidth: '200px' }}
+                >
+                  <span className="d-flex align-items-center justify-content-center gap-1">
                     <FaGithub size={17} />
-                    GitHub
+                    <span className="d-none d-md-inline">GitHub</span>
+                    <span className="d-inline d-md-none">Git</span>
                   </span>
                 </Button>
               </div>
@@ -182,30 +337,74 @@ const Portfolio = () => {
         </Container>
       </section>
 
-      <section id="about" className="py-5" style={{ backgroundColor: '#5A189A', color: '#EAEAEA' }}>
+      <section id="about" className="py-5" style={{ backgroundColor: '#FFFFFF', color: '#000000' }}>
         <Container>
           <h2 className="text-center fw-bold mb-5">About Me</h2>
-          <p
-            className="mb-4"
-            style={{ fontSize: '1.125rem', textAlign: 'justify' }}
-          >
-            I am a graduating Bachelor of Science in Information Technology student from the University of Cabuyao (UC), seeking an entry-level web developer position. I am willing to gain practical experience, develop my skills on the job, and contribute to team projects. Motivated to learn and grow professionally, I aim to build a strong foundation in web development.
-          </p>
-          <p style={{ fontSize: '1.125rem', textAlign: 'justify' }}>
-            I have knowledge in HTML, CSS, and JavaScript, with hands-on experience in building full-stack web applications using React, Node.js, Express, and MySQL. I am also familiar with version control systems such as Git and GitHub, including collaborative workflows, branching strategies, and pull request management. Additionally, I am skilled in using productivity tools like Microsoft Office Suite (Word, Excel, and PowerPoint) for documentation, data analysis, and presentations. I am currently exploring AI platforms such as ChatGPT, Claude, and DeepSeek to assist with coding, debugging, research, and enhancing overall productivity.
-          </p>
+          <Row className="align-items-center">
+            <Col md={4} className="text-center mb-4">
+              <div className="profile-image-wrapper">
+                <div className="profile-bg-circle"></div>
+
+                <img
+                  src={myphoto}
+                  alt="Profile"
+                  className="rounded-circle mb-4 profile-image"
+                  width="300"
+                  height="300"
+                />
+
+                <div className="decorative-dot-1"></div>
+                <div className="decorative-dot-2"></div>
+              </div>
+            </Col>
+
+            <Col md={8}>
+              <div className="position-relative">
+                <div className="accent-bar-top"></div>
+
+                <div className="mb-4">
+                  <p className="text-content">
+                    I am a graduate of <strong>Bachelor of Science in Information Technology</strong> from the University of Cabuyao (UC), seeking an entry-level web developer position. I am willing to gain practical experience, develop my skills on the job, and contribute to team projects. Motivated to learn and grow professionally, I aim to build a strong foundation in web development.
+                  </p>
+                </div>
+
+                <div className="mb-4">
+                  <p className="text-content">
+                    I have knowledge in <strong>HTML, CSS, and JavaScript</strong>, with hands-on experience in building full-stack web applications using React, Node.js, Express, and MySQL. I am also familiar with version control systems such as Git and GitHub, including collaborative workflows, branching strategies, and pull request management. Additionally, I am skilled in using productivity tools like Microsoft Office Suite (Word, Excel, and PowerPoint) for documentation, data analysis, and presentations. I am currently exploring AI platforms such as ChatGPT and OpenAI, with the aim of using these tools to assist with coding, debugging, research, and enhancing overall productivity.
+                  </p>
+                  <p>
+                    Check my resume for more details →{''}
+                    <a
+                      href="/Emanuel-Domoos-Resume.pdf"
+                      download
+                      className="btn btn-outline-primary btn-sm ms-2 rounded-pill"
+                    >
+                      Download Resume
+                    </a>
+
+                  </p>
+
+
+                </div>
+              </div>
+            </Col>
+          </Row>
         </Container>
       </section>
 
-      <section id="skills" className="py-5" style={{ backgroundColor: '#5A189A', color: '#EAEAEA' }}>
+
+      <section id="skills" className="py-5" style={{ backgroundColor: '#FFFFFF', color: '#000000' }}>
         <Container>
           <h2 className="text-center fw-bold mb-5">Skills</h2>
           <Row>
             {skills.map((skill, index) => (
               <Col sm={6} md={4} lg={3} key={skill} className="mb-3">
                 <Card className="text-center h-100 shadow-sm">
-                  <Card.Body>
-                    <Card.Text className="fw-medium">{skill}</Card.Text>
+                  <Card.Body className="d-flex align-items-center justify-content-center gap-3">
+                    <div style={{ fontSize: '2rem' }}>
+                      {techIcons[skill] || <FaTools className="text-secondary" />}
+                    </div>
+                    <Card.Text className="fw-medium mb-0">{skill}</Card.Text>
                   </Card.Body>
                 </Card>
               </Col>
@@ -213,33 +412,34 @@ const Portfolio = () => {
           </Row>
         </Container>
       </section>
+
       <section id="projects" className="py-5" style={{ backgroundColor: '#1A1A2E' }}>
         <Container>
           <h2 className="text-center fw-bold mb-5" style={{ color: '#EAEAEA' }}> My Projects</h2>
           <Row>
+            {/* DepEd Ticketing System */}
             <Col md={6} lg={4} className='mb-4'>
               <Card className="h-100 shadow-sm">
                 <Card.Img variant="top" src={deped} alt="Project Thumbnail" />
                 <Card.Body>
-                  <Card.Title>Deped Ticketing System</Card.Title>
-                  <Card.Text style={{ textAlign: 'justify' }}> A web-based system for DepEd Cabuyao streamlines and automates the process of ticketing and account requests, allowing users to submit, track, and manage their requests efficiently online.</Card.Text>
-                  <div className="mb-3">
-                    <Badge key="React" className="tags me-2 mb-1">React</Badge>
-                    <Badge key="Vite" className="tags me-2 mb-1">Vite</Badge>
-                    <Badge key="Bootstrap" className="tags me-2 mb-1">Bootstrap</Badge>
-
-                    <Badge key="Node" className="tags me-2 mb-1">Node</Badge>
-                    <Badge key="Express" className="tags me-2 mb-1">Express</Badge>
-                    <Badge key="MySQL" className="tags me-2 mb-1">MySQL</Badge>
-                  </div>
+                  <Card.Title>DepEd Ticketing System</Card.Title>
+                  <Card.Text style={{ textAlign: 'justify' }}>
+                    A web-based system for DepEd Cabuyao streamlines and automates the process of ticketing and account requests, allowing users to submit, track, and manage their requests efficiently online.
+                  </Card.Text>
+                  <p className="mt-3 mb-1 fw-semibold" style={{ fontSize: '0.9rem', color: '#9D4EDD' }}>
+                    Technologies Used:
+                  </p>
+                  {renderTechIcons(['JavaScript', 'React', 'Vite', 'Bootstrap', 'Node', 'Express', 'MySQL'])}
                   <div className="d-flex gap-2">
                     <Button className='inside-btn' size="sm" onClick={handleRedirectDeped}>
-                      🔗 Visit Website
+                      🔗 See It Live
                     </Button>
                   </div>
                 </Card.Body>
               </Card>
             </Col>
+
+            {/* Cashless Ordering System */}
             <Col md={6} lg={4} className='mb-4'>
               <Card className="h-100 shadow-sm">
                 <Card.Img variant="top" src={ordering} alt="Project Thumbnail" />
@@ -248,25 +448,20 @@ const Portfolio = () => {
                   <Card.Text style={{ textAlign: 'justify' }}>
                     An ordering system developed for Saint Jerome Integrated School of Cabuyao that includes features such as cashless payments, inventory tracking, and sales reporting.
                   </Card.Text>
-                  <div className="mb-3">
-                    <Badge key="React" className="tags me-2 mb-1">React</Badge>
-                    <Badge key="Bootstrap" className="tags me-2 mb-1">Bootstrap</Badge>
-
-                    <Badge key="Node" className="tags me-2 mb-1">Node</Badge>
-                    <Badge key="Express" className="tags me-2 mb-1">Express</Badge>
-                    <Badge key="MySQL" className="tags me-2 mb-1">MySQL</Badge>
-
-                    <Badge key="PayMongo" className="tags me-2 mb-1">PayMongo</Badge>
-                  </div>
-
+                  <p className="mt-3 mb-1 fw-semibold" style={{ fontSize: '0.9rem', color: '#9D4EDD' }}>
+                    Technologies Used:
+                  </p>
+                  {renderTechIcons(['JavaScript', 'React', 'Bootstrap', 'Node', 'Express', 'MySQL', 'PayMongo'])}
                   <div className="d-flex gap-2">
                     <Button className='inside-btn' size="sm" onClick={handleRedirectSJ}>
-                      🔗 Visit Website
+                      🔗 See It Live
                     </Button>
                   </div>
                 </Card.Body>
               </Card>
             </Col>
+
+            {/* Graal Era Calculator */}
             <Col md={6} lg={4} className='mb-4'>
               <Card className="h-100 shadow-sm">
                 <Card.Img variant="top" src={graal} alt="Project Thumbnail" />
@@ -275,19 +470,20 @@ const Portfolio = () => {
                   <Card.Text style={{ textAlign: 'justify' }}>
                     Designed for Graal Era players, this ratio calculator makes item trading easier, faster, and more accurate by reducing human errors and improving overall trading efficiency.
                   </Card.Text>
-                  <div className="mb-3">
-                    <Badge key="HTML" className="tags me-2 mb-1">HTML</Badge>
-                    <Badge key="JavaScript" className="tags me-2 mb-1">JavaScript</Badge>
-                    <Badge key="Css" className="tags me-2 mb-1">CSS</Badge>
-                  </div>
+                  <p className="mt-3 mb-1 fw-semibold" style={{ fontSize: '0.9rem', color: '#9D4EDD' }}>
+                    Technologies Used:
+                  </p>
+                  {renderTechIcons(['HTML', 'JavaScript', 'CSS'])}
                   <div className="d-flex gap-2">
                     <Button className='inside-btn' size="sm" onClick={handleRedirectGraal}>
-                      🔗 Visit Website
+                      🔗 See It Live
                     </Button>
                   </div>
                 </Card.Body>
               </Card>
             </Col>
+
+            {/* Daily Digest */}
             <Col md={6} lg={4} className='mb-4'>
               <Card className="h-100 shadow-sm">
                 <Card.Img variant="top" src={poop} alt="Project Thumbnail" />
@@ -296,44 +492,35 @@ const Portfolio = () => {
                   <Card.Text style={{ textAlign: 'justify' }}>
                     A funny little poop tracker to keep tabs on your bathroom trips because even your poop deserves a little attention.
                   </Card.Text>
-                  <div className="mb-3">
-                    <Badge key="React" className="tags me-2 mb-1">React</Badge>
-                    <Badge key="Vite" className="tags me-2 mb-1">Vite</Badge>
-                    <Badge key="Bootstrap" className="tags me-2 mb-1">Bootstrap</Badge>
-
-                    <Badge key="Node" className="tags me-2 mb-1">Node</Badge>
-                    <Badge key="Express" className="tags me-2 mb-1">Express</Badge>
-                    <Badge key="MySQL" className="tags me-2 mb-1">PostgreSQL</Badge>
-                  </div>
+                  <p className="mt-3 mb-1 fw-semibold" style={{ fontSize: '0.9rem', color: '#9D4EDD' }}>
+                    Technologies Used:
+                  </p>
+                  {renderTechIcons(['JavaScript', 'React', 'Vite', 'Bootstrap', 'Node', 'Express', 'PostgreSQL'])}
                   <div className="d-flex gap-2">
                     <Button className='inside-btn' size="sm" onClick={handleRedirectPoop}>
-                      🔗 Visit Website
+                      🔗 See It Live
                     </Button>
                   </div>
                 </Card.Body>
               </Card>
             </Col>
+
+            {/* Color Kind */}
             <Col md={6} lg={4} className='mb-4'>
               <Card className="h-100 shadow-sm">
                 <Card.Img variant="top" src={colorkind} alt="Project Thumbnail" />
                 <Card.Body>
                   <Card.Title>Color Kind</Card.Title>
                   <Card.Text style={{ textAlign: 'justify' }}>
-                    An accessibility-first web app that helps users generate, test, and save color palettes with real-time WCAG contrast checks and colorblind previews, ensuring inclusive, readable design for everyone—especially colorblind users.(Still in development)
+                    An accessibility-first web app that helps users generate, test, and save color palettes with real-time WCAG contrast checks and colorblind previews, ensuring inclusive, readable design for everyone—especially colorblind users. (Still in development)
                   </Card.Text>
-                  <div className="mb-3">
-                    <Badge key="TypeScript" className="tags me-2 mb-1">TypeScript</Badge>
-                    <Badge key="React" className="tags me-2 mb-1">React</Badge>
-                    <Badge key="Vite" className="tags me-2 mb-1">Vite</Badge>
-                    <Badge key="Bootstrap" className="tags me-2 mb-1">Tailwind</Badge>
-
-                    <Badge key="Node" className="tags me-2 mb-1">Node</Badge>
-                    <Badge key="Express" className="tags me-2 mb-1">Express</Badge>
-                    <Badge key="MySQL" className="tags me-2 mb-1">PostgreSQL</Badge>
-                  </div>
+                  <p className="mt-3 mb-1 fw-semibold" style={{ fontSize: '0.9rem', color: '#9D4EDD' }}>
+                    Technologies Used:
+                  </p>
+                  {renderTechIcons(['TypeScript', 'React', 'Vite', 'Tailwind', 'Node', 'Express', 'PostgreSQL'])}
                   <div className="d-flex gap-2">
                     <Button className='inside-btn' size="sm" onClick={handleRedirectPoop}>
-                      🔗 Visit Website
+                      🔗 See It Live
                     </Button>
                   </div>
                 </Card.Body>
@@ -342,7 +529,8 @@ const Portfolio = () => {
           </Row>
         </Container>
       </section>
-      <section id="contact" className="py-5" style={{ backgroundColor: '#5A189A', color: '#EAEAEA' }}>
+
+      <section id="contact" className="py-5" style={{ backgroundColor: '#FFFFFF', color: '#000000' }}>
         <Container>
           <h2 className="text-center fw-bold mb-4">Get In Touch</h2>
           <p className="text-center lead mb-5">
@@ -350,49 +538,66 @@ const Portfolio = () => {
           </p>
 
           <Row className="mb-5">
-            <Col md={4} className="text-center mb-4">
+            <Col md={4} className="text-center mb-4 d-flex flex-column">
               <div className="mb-3">
-                <span style={{ fontSize: '3rem' }}>📧</span>
+                <FaFacebook style={{ fontSize: '3rem', color: '#000000' }} />
               </div>
-              <h5 className="fw-semibold">Email</h5>
-              <p style={{ color: '#EAEAEA' }}>domoosemanuel32@gmail.com</p>
+              <h5 className="fw-semibold">Facebook</h5>
+              <p style={{ color: '#000000' }} className="mb-3">Connect with me on Facebook</p>
+              <div className="mt-auto">
+                <Button
+                  className="rounded-pill px-4"
+                  onClick={() => window.open('https://facebook.com', '_blank')}
+                >
+                  Visit Facebook
+                </Button>
+              </div>
             </Col>
-            <Col md={4} className="text-center mb-4">
+            <Col md={4} className="text-center mb-4 d-flex flex-column">
               <div className="mb-3">
                 <span style={{ fontSize: '3rem' }}>💼</span>
               </div>
               <h5 className="fw-semibold">LinkedIn</h5>
-              <p style={{ color: '#EAEAEA' }}>n/a</p>
+              <p style={{ color: '#000000' }} className="mb-3">Professional networking</p>
+              <div className="mt-auto">
+                <Button
+
+                  className="rounded-pill px-4"
+                  onClick={() => window.open('https://www.linkedin.com/in/emanuel-domoos-30069336b/', '_blank')}
+                >
+                  Visit LinkedIn
+                </Button>
+              </div>
             </Col>
-            <Col md={4} className="text-center mb-4">
+            <Col md={4} className="text-center mb-4 d-flex flex-column">
               <div className="mb-3">
-                <FaGithub style={{ fontSize: '3rem', color: '#EAEAEA' }} />
+                <FaGithub style={{ fontSize: '3rem', color: '#000000' }} />
               </div>
               <h5 className="fw-semibold">GitHub</h5>
-              <p style={{ color: '#EAEAEA' }}>
-                <a href="https://github.com/EmanDomo" target="_blank" rel="noopener noreferrer" style={{ color: '#EAEAEA', textDecoration: 'none' }}>
-                  github.com/EmanDomo
-                </a>
-              </p>
+              <p style={{ color: '#000000' }} className="mb-3">Check out my projects</p>
+              <div className="mt-auto">
+                <Button
+                  className="rounded-pill px-4"
+                  onClick={() => window.open('https://github.com/EmanDomo', '_blank')}
+                >
+                  Visit GitHub
+                </Button>
+              </div>
             </Col>
           </Row>
+
           <div className="text-center">
-            <Button
-              size="lg"
-              onClick={handleRedirectFacebook}
-              className="rounded-pill"
-              style={{ backgroundColor: '#9D4EDD' }}
-            >
-              <span className="d-flex align-items-center justify-content-center gap-2">
-                <FaFacebook size={24} />
-                Message me on Facebook
-              </span>
-            </Button>
+            <div className="mb-3">
+              <span style={{ fontSize: '3rem' }}>📧</span>
+            </div>
+            <h5 className="fw-semibold">Email</h5>
+            <p style={{ color: '#666666', fontSize: '1.1rem' }}>
+              domoosemanuel32@gmail.com
+            </p>
           </div>
         </Container>
       </section>
 
-      {/* Footer */}
       <footer className="py-4 border-top" style={{ backgroundColor: '#1A1A2E' }}>
         <Container>
           <p className="text-center mb-0" style={{ color: '#EAEAEA' }}>
