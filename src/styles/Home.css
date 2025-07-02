@@ -36,6 +36,18 @@ html {
   }
 }
 
+/* Remove fixed background on mobile */
+@media (max-width: 767.98px) {
+  body {
+    background-attachment: scroll !important;
+  }
+  
+  /* Add dark background to prevent white flash */
+  #home, #about, #skills, #projects, #contact {
+    background-color: rgba(0, 0, 0, 0.85);
+  }
+}
+
 
 /*HomeSection.css*/
 
