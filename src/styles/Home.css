@@ -13,6 +13,30 @@ html {
   scroll-behavior: smooth !important;
 }
 
+
+/*makes the home and about closer in mobile devices */
+@media (max-width: 767.98px) {
+  #home {
+    padding-bottom: 0.5rem !important; /* Much closer spacing */
+  }
+  
+  #about {
+    padding-top: 0.5rem !important; /* Much closer spacing */
+  }
+}
+
+/* Extra small devices (up to 576px) */
+@media (max-width: 575.98px) {
+  #home {
+    padding-bottom: 0.25rem !important; /* Even tighter */
+  }
+  
+  #about {
+    padding-top: 0.25rem !important; /* Even tighter */
+  }
+}
+
+
 /*HomeSection.css*/
 
 .profile-container {
