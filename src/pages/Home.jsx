@@ -374,6 +374,11 @@ const Portfolio = () => {
 
   return (
     <div>
+            <div className="background-container">
+        {/* Mobile-only background overlay */}
+        <div className="mobile-bg-overlay d-md-none"></div>
+      </div>
+
       <Navbar expand="lg" fixed="top" className="shadow-sm" style={{ backgroundColor: '#5A189A', color: '#EAEAEA' }}>
         <Container>
           {/* <img

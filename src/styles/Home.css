@@ -48,6 +48,43 @@ html {
   }
 }
 
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  background-image: url('../assets/bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Mobile-specific overlay to prevent white flash */
+.mobile-bg-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: -1;
+}
+
+/* For mobile devices - remove fixed attachment */
+@media (max-width: 767.98px) {
+  .background-container {
+    background-attachment: scroll !important;
+  }
+  
+  /* Add dark background to sections to prevent white flash */
+  #home, #about, #skills, #projects, #contact {
+    background-color: rgba(0, 0, 0, 0.85);
+  }
+}
+
 
 /*HomeSection.css*/
 
