@@ -13,79 +13,6 @@ html {
   scroll-behavior: smooth !important;
 }
 
-
-/*makes the home and about closer in mobile devices */
-@media (max-width: 767.98px) {
-  #home {
-    padding-bottom: 0.5rem !important; /* Much closer spacing */
-  }
-  
-  #about {
-    padding-top: 0.5rem !important; /* Much closer spacing */
-  }
-}
-
-/* Extra small devices (up to 576px) */
-@media (max-width: 575.98px) {
-  #home {
-    padding-bottom: 0.25rem !important; /* Even tighter */
-  }
-  
-  #about {
-    padding-top: 0.25rem !important; /* Even tighter */
-  }
-}
-
-/* Remove fixed background on mobile */
-@media (max-width: 767.98px) {
-  body {
-    background-attachment: scroll !important;
-  }
-  
-  /* Add dark background to prevent white flash */
-  #home, #about, #skills, #projects, #contact {
-    background-color: rgba(0, 0, 0, 0.85);
-  }
-}
-
-.background-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -2;
-  background-image: url('../assets/bg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
-
-/* Mobile-specific overlay to prevent white flash */
-.mobile-bg-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.85);
-  z-index: -1;
-}
-
-/* For mobile devices - remove fixed attachment */
-@media (max-width: 767.98px) {
-  .background-container {
-    background-attachment: scroll !important;
-  }
-  
-  /* Add dark background to sections to prevent white flash */
-  #home, #about, #skills, #projects, #contact {
-    background-color: rgba(0, 0, 0, 0.85);
-  }
-}
-
-
 /*HomeSection.css*/
 
 .profile-container {
@@ -339,11 +266,6 @@ html {
 #about {
   position: relative;
   color: #ffffff;
-  /* Add these for better mobile rendering */
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
 }
 
 
@@ -368,8 +290,14 @@ html {
 }
 
 .profile-bg-circle {
-  /* COMPLETELY REMOVE OR SET TO DISPLAY NONE */
-  display: none !important;
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  top: 0;
+  left: 0;
+  z-index: 0;
 }
 
 .profile-image {
@@ -466,7 +394,7 @@ html {
   display: inline-block;
 }
 
-/* .profile-bg-circle {
+.profile-bg-circle {
   position: absolute;
   width: 320px;
   height: 320px;
@@ -476,8 +404,8 @@ html {
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
-  opacity: 0;
-} */
+  opacity: 0.1;
+}
 
 .profile-image {
   z-index: 2;
