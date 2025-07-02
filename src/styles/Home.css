@@ -266,6 +266,11 @@ html {
 #about {
   position: relative;
   color: #ffffff;
+  /* Add these for better mobile rendering */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 
@@ -290,12 +295,8 @@ html {
 }
 
 .profile-bg-circle {
- background: rgba(102, 126, 234, 0.1);
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
-  opacity: 0;
+  /* COMPLETELY REMOVE OR SET TO DISPLAY NONE */
+  display: none !important;
 }
 
 .profile-image {
@@ -392,7 +393,7 @@ html {
   display: inline-block;
 }
 
-.profile-bg-circle {
+/* .profile-bg-circle {
   position: absolute;
   width: 320px;
   height: 320px;
@@ -403,7 +404,7 @@ html {
   transform: translateX(-50%);
   z-index: 1;
   opacity: 0;
-}
+} */
 
 .profile-image {
   z-index: 2;
