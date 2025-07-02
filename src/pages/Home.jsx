@@ -29,7 +29,6 @@ import {
 } from 'react-icons/si';
 import { FaHtml5, FaCss3Alt, FaTools } from 'react-icons/fa';
 
-// useScrollFade Hook
 const useScrollFade = (options = {}) => {
   const {
     threshold = 0.1,
@@ -56,7 +55,6 @@ const useScrollFade = (options = {}) => {
         if (isIntersecting) {
           setIsVisible(true);
 
-          // Calculate fade based on element position
           let fadeValue = 1;
           let translateValue = 0;
 
@@ -150,11 +148,55 @@ const useScrollFade = (options = {}) => {
 };
 
 const Portfolio = () => {
+  const [displayText, setDisplayText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const fullText = "Hi! I'm Emanuel Domoos";
+
+  // Typewriter animation effect
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!isDeleting && currentIndex < fullText.length) {
+        setDisplayText(fullText.slice(0, currentIndex + 1));
+        setCurrentIndex(currentIndex + 1);
+      } else if (isDeleting && currentIndex > 0) {
+        setDisplayText(fullText.slice(0, currentIndex - 1));
+        setCurrentIndex(currentIndex - 1);
+      } else if (currentIndex === fullText.length) {
+        setTimeout(() => setIsDeleting(true), 2000);
+      } else if (currentIndex === 0) {
+        setIsDeleting(false);
+      }
+    }, isDeleting ? 50 : 100);
+
+    return () => clearTimeout(timeout);
+  }, [currentIndex, isDeleting, fullText]);
+
   // Fade animation hooks for home section elements
   const profileImageFade = useScrollFade({ threshold: 0.2 });
   const titleFade = useScrollFade({ threshold: 0.2 });
   const subtitleFade = useScrollFade({ threshold: 0.2 });
   const buttonsFade = useScrollFade({ threshold: 0.2 });
+
+  // About section fades
+  const aboutTitleFade = useScrollFade({ threshold: 0.2 });
+  const aboutImageFade = useScrollFade({ threshold: 0.2 });
+  const aboutTextFade = useScrollFade({ threshold: 0.2 });
+  const aboutResumeFade = useScrollFade({ threshold: 0.2 });
+
+  // Skills section fades
+  const skillsTitleFade = useScrollFade({ threshold: 0.2 });
+  const skillsCardFades = Array.from({ length: 6 }, () => useScrollFade({ threshold: 0.1 }));
+
+  // Projects section fades
+  const projectsTitleFade = useScrollFade({ threshold: 0.2 });
+  const projectCardFades = Array.from({ length: 5 }, () => useScrollFade({ threshold: 0.1 }));
+
+  // Contact section fades
+  const contactTitleFade = useScrollFade({ threshold: 0.2 });
+  const contactSubtitleFade = useScrollFade({ threshold: 0.2 });
+  const contactCardFades = Array.from({ length: 3 }, () => useScrollFade({ threshold: 0.1 }));
+  const contactEmailFade = useScrollFade({ threshold: 0.2 });
 
   const skills = ['JavaScript', 'React', 'Node', 'MySQL', 'Git/Github', 'AI Tools'];
 
@@ -235,7 +277,6 @@ const Portfolio = () => {
               {techIcons[tech] || <span style={{ fontSize: '12px' }}>{tech}</span>}
             </span>
 
-            {/* Tooltip */}
             <div
               className="tech-tooltip"
               style={{
@@ -305,7 +346,7 @@ const Portfolio = () => {
     const handleScroll = () => {
       const sections = ['home', 'about', 'skills', 'projects', 'contact'];
       let current = 'home';
-      const offset = 100; // Detection offset
+      const offset = 100;
 
       sections.forEach((section) => {
         const element = document.getElementById(section);
@@ -394,30 +435,35 @@ const Portfolio = () => {
       </Navbar>
 
       <section id="home" className="py-5 hero-section">
-
-        <div
-          className="background-blur"
-          style={{ backgroundImage: `url(${bg})` }}
-        ></div>
-
         <div className="dark-overlay"></div>
-
         <Container className="content-container">
           <Row className="align-items-center min-vh-100">
             <Col lg={12} className="text-center">
               <div ref={profileImageFade.ref} style={profileImageFade.style}>
-                <img
-                  src={homePhoto}
-                  alt="Profile"
-                  className="rounded-circle mb-4"
-                  width="150"
-                  height="150"
-                />
+                <div className="profile-container">
+                  <div className="profile-bg-ring"></div>
+                  <div className="profile-glow"></div>
+                  <img
+                    src={myphoto}
+                    alt="Profile"
+                    className="profile-image-enhanced"
+                    width="150"
+                    height="150"
+                  />
+                  <div className="floating-icons">
+                    <SiReact className="floating-icon react-icon" />
+                    <SiJavascript className="floating-icon js-icon" />
+                    <SiNodedotjs className="floating-icon node-icon" />
+                  </div>
+                </div>
               </div>
 
               <div ref={titleFade.ref} style={titleFade.style}>
                 <h1 className="display-4 fw-bold mb-3" style={{ color: '#FFFFFF' }}>
-                  Hi! I'm <span style={{ color: '#9D4EDD' }}>Emanuel Domoos</span>
+                  <span className="typing-text">
+                    {displayText}
+                    <span className="cursor">|</span>
+                  </span>
                 </h1>
               </div>
 
@@ -426,29 +472,70 @@ const Portfolio = () => {
                   Here, you can check out what I'm working on. I try my best to create things with ❤
                 </p>
               </div>
+            </Col>
+          </Row>
+        </Container>
+      </section>
 
-              <div ref={buttonsFade.ref} style={buttonsFade.style}>
-                <div className="button-group">
-                  <Button href="#contact" className="rounded-pill w-100 w-sm-auto" style={{ minWidth: '120px', maxWidth: '200px' }}>
-                    📧 Email
-                  </Button>
-                  <Button href="#contact" className="rounded-pill w-100 w-sm-auto" style={{ minWidth: '120px', maxWidth: '200px' }}>
-                    💼 LinkedIn
-                  </Button>
-                  <Button href="#contact" className="rounded-pill w-100 w-sm-auto" style={{ minWidth: '120px', maxWidth: '200px' }}>
-                    <span className="d-flex align-items-center justify-content-center gap-1">
-                      <FaFacebook size={17} />
-                      <span className="d-none d-md-inline">Facebook</span>
-                      <span className="d-inline d-md-none">FB</span>
-                    </span>
-                  </Button>
-                  <Button href="#contact" className="rounded-pill w-100 w-sm-auto" style={{ minWidth: '120px', maxWidth: '200px' }}>
-                    <span className="d-flex align-items-center justify-content-center gap-1">
-                      <FaGithub size={17} />
-                      <span className="d-none d-md-inline">GitHub</span>
-                      <span className="d-inline d-md-none">Git</span>
-                    </span>
-                  </Button>
+      <section id="about" className="py-5">
+        <div className="dark-overlay"></div>
+        <Container className="content-container">
+          <div ref={aboutTitleFade.ref} style={aboutTitleFade.style}>
+            <h2 className="text-center fw-bold mb-5">About Me</h2>
+          </div>
+
+          <Row className="align-items-center">
+            <Col md={4} className="text-center mb-4">
+              <div ref={aboutImageFade.ref} style={aboutImageFade.style}>
+                <div className="profile-image-wrapper">
+                  <div className="profile-bg-circle"></div>
+                  <img
+                    src={homePhoto}
+                    alt="Profile"
+                    className="rounded-circle mb-4 profile-image"
+                    width="300"
+                    height="300"
+                    style={{ objectFit: 'cover' }}
+                  />
+                  <div className="decorative-dot-1"></div>
+                  <div className="decorative-dot-2"></div>
+                  <div className="decorative-dot-3"></div>
+                  <div className="decorative-dot-4"></div>
+                  <div className="decorative-dot-5"></div>
+                  <div className="decorative-dot-6"></div>
+                </div>
+              </div>
+            </Col>
+            <Col md={8}>
+              <div className="position-relative">
+                <div className="accent-bar-top"></div>
+
+                <div ref={aboutTextFade.ref} style={aboutTextFade.style}>
+                  <div className="mb-4">
+                    <p className="text-content" style={{ textAlign: 'justify', textJustify: 'inter-word', hyphens: 'auto' }}>
+                      I am a graduate of <strong>Bachelor of Science in Information Technology</strong> from the University of Cabuyao (UC), seeking an entry-level web developer position. I am motivated to gain practical experience, develop my skills on the job, and contribute to team projects. I am committed to continuous learning and aim to build a strong foundation in web development.
+                    </p>
+                  </div>
+
+                  <div className="mb-4">
+                    <p className="text-content" style={{ textAlign: 'justify', textJustify: 'inter-word', hyphens: 'auto' }}>
+                      I have knowledge in <strong>HTML, CSS, and JavaScript</strong>, with hands-on experience in building full-stack web applications using React, Node.js, Express, and MySQL. I am also familiar with version control systems such as Git and GitHub, including collaborative workflows, branching strategies, and pull request management. Additionally, I am skilled in using productivity tools like Microsoft Office Suite (Word, Excel, and PowerPoint) for documentation, data analysis, and presentations. I am currently exploring AI platforms such as ChatGPT and OpenAI to assist with coding, debugging, research, and enhancing overall productivity.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Animated resume button */}
+                <div ref={aboutResumeFade.ref} style={aboutResumeFade.style}>
+                  <p className="text-start">
+                    Check my resume →
+                    <a
+                      href="/Emanuel-Domoos-Resume.pdf"
+                      download
+                      className="btn btn-sm ms-2 rounded-pill"
+                    >
+                      Download Resume
+                    </a>
+                  </p>
                 </div>
               </div>
             </Col>
@@ -456,83 +543,27 @@ const Portfolio = () => {
         </Container>
       </section>
 
-<section id="about" className="py-5">
-  <div
-    className="background-blur"
-    style={{ backgroundImage: `url(${bg})` }}
-  ></div>
-  <div className="dark-overlay"></div>
-  <Container className="content-container">
-    <h2 className="text-center fw-bold mb-5">About Me</h2>
-    <Row className="align-items-center">
-      <Col md={4} className="text-center mb-4">
-        <div className="profile-image-wrapper">
-          <div className="profile-bg-circle"></div>
-          <img
-            src={myphoto}
-            alt="Profile"
-            className="rounded-circle mb-4 profile-image"
-            width="300"
-            height="300"
-          />
-          <div className="decorative-dot-1"></div>
-          <div className="decorative-dot-2"></div>
-        </div>
-      </Col>
-
-      <Col md={8}>
-        <div className="position-relative">
-          <div className="accent-bar-top"></div>
-
-          <div className="mb-4">
-            <p className="text-content" style={{textAlign: 'justify', textJustify: 'inter-word', hyphens: 'auto'}}>
-              I am a graduate of <strong>Bachelor of Science in Information Technology</strong> from the University of Cabuyao (UC), seeking an entry-level web developer position. I am motivated to gain practical experience, develop my skills on the job, and contribute to team projects. I am committed to continuous learning and aim to build a strong foundation in web development.
-            </p>
-          </div>
-
-          <div className="mb-4">
-            <p className="text-content" style={{textAlign: 'justify', textJustify: 'inter-word', hyphens: 'auto'}}>
-              I have knowledge in <strong>HTML, CSS, and JavaScript</strong>, with hands-on experience in building full-stack web applications using React, Node.js, Express, and MySQL. I am also familiar with version control systems such as Git and GitHub, including collaborative workflows, branching strategies, and pull request management. Additionally, I am skilled in using productivity tools like Microsoft Office Suite (Word, Excel, and PowerPoint) for documentation, data analysis, and presentations. I am currently exploring AI platforms such as ChatGPT and OpenAI to assist with coding, debugging, research, and enhancing overall productivity.
-            </p>
-
-            <p className="text-start">
-              Check my resume →
-              <a
-                href="/Emanuel-Domoos-Resume.pdf"
-                download
-                className="btn btn-sm ms-2 rounded-pill"
-              >
-                Download Resume
-              </a>
-            </p>
-          </div>
-        </div>
-      </Col>
-    </Row>
-  </Container>
-</section>
-
       <section id="skills" className="py-5">
-        <div
-          className="background-blur"
-          style={{ backgroundImage: `url(${bg})` }}
-        ></div>
-
         <div className="dark-overlay"></div>
-
         <Container className="content-container">
-          <h2 className="text-center fw-bold mb-5">Skills</h2>
+          <div ref={skillsTitleFade.ref} style={skillsTitleFade.style}>
+            <h2 className="text-center fw-bold mb-5">Skills</h2>
+          </div>
+
           <Row>
             {skills.map((skill, index) => (
               <Col sm={6} md={4} lg={3} key={skill} className="mb-3">
-                <Card className="skill-card">
-                  <Card.Body className="d-flex align-items-center justify-content-center gap-3">
-                    <div className="skill-icon">
-                      {techIcons[skill] || <FaTools className="text-secondary" />}
-                    </div>
-                    <Card.Text className="fw-medium mb-0">{skill}</Card.Text>
-                  </Card.Body>
-                </Card>
+                {/* Each skill card gets its own fade animation */}
+                <div ref={skillsCardFades[index].ref} style={skillsCardFades[index].style}>
+                  <Card className="skill-card">
+                    <Card.Body className="d-flex align-items-center justify-content-center gap-3">
+                      <div className="skill-icon">
+                        {techIcons[skill] || <FaTools className="text-secondary" />}
+                      </div>
+                      <Card.Text className="fw-medium mb-0">{skill}</Card.Text>
+                    </Card.Body>
+                  </Card>
+                </div>
               </Col>
             ))}
           </Row>
@@ -540,223 +571,228 @@ const Portfolio = () => {
       </section>
 
       <section id="projects" className="py-5">
-        {/* Blurred background layer */}
-        <div
-          className="background-blur"
-          style={{ backgroundImage: `url(${bg})` }}
-        ></div>
-
-        {/* Dark overlay */}
         <div className="dark-overlay"></div>
-
         <Container className="content-container">
-          <h2 className="text-center fw-bold mb-5">My Projects</h2>
+          {/* Animated title */}
+          <div ref={projectsTitleFade.ref} style={projectsTitleFade.style}>
+            <h2 className="text-center fw-bold mb-5">My Projects</h2>
+          </div>
+
           <Row>
-            {/* DepEd Ticketing System */}
+            {/* Project 1: DepEd Ticketing System */}
             <Col md={6} lg={4} className="mb-4">
-              <Card className="h-100 shadow-sm">
-                <Card.Img variant="top" src={deped} alt="Project Thumbnail" />
-                <Card.Body>
-                  <Card.Title>DepEd Ticketing System</Card.Title>
-                  <Card.Text style={{ textAlign: 'justify' }}>
-                    A web-based system for DepEd Cabuyao streamlines and automates the process of ticketing and account requests, allowing users to submit, track, and manage their requests efficiently online.
-                  </Card.Text>
-                  <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
-                  {renderTechIcons(['JavaScript', 'React', 'Vite', 'Bootstrap', 'Node', 'Express', 'MySQL'])}
-                  <div className="d-flex gap-2">
-                    <Button className="inside-btn project-btn" size="sm" onClick={handleRedirectDeped}>
-                      🔗 See It Live
-                    </Button>
-                  </div>
-                </Card.Body>
-              </Card>
+              <div ref={projectCardFades[0].ref} style={projectCardFades[0].style}>
+                <Card className="h-100 shadow-sm">
+                  <Card.Img variant="top" src={deped} alt="Project Thumbnail" />
+                  <Card.Body>
+                    <Card.Title>DepEd Ticketing System</Card.Title>
+                    <Card.Text style={{ textAlign: 'justify' }}>
+                      A web-based system for DepEd Cabuyao streamlines and automates the process of ticketing and account requests, allowing users to submit, track, and manage their requests efficiently online.
+                    </Card.Text>
+                    <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
+                    {renderTechIcons(['JavaScript', 'React', 'Vite', 'Bootstrap', 'Node', 'Express', 'MySQL'])}
+                    <div className="d-flex gap-2">
+                      <Button className="inside-btn project-btn" size="sm" onClick={handleRedirectDeped}>
+                        🔗 See It Live
+                      </Button>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </div>
             </Col>
 
-            {/* Cashless Ordering System */}
+            {/* Project 2: Cashless Ordering System */}
             <Col md={6} lg={4} className="mb-4">
-              <Card className="h-100 shadow-sm">
-                <Card.Img variant="top" src={ordering} alt="Project Thumbnail" />
-                <Card.Body>
-                  <Card.Title>Cashless Ordering System</Card.Title>
-                  <Card.Text style={{ textAlign: 'justify' }}>
-                    An ordering system developed for Saint Jerome Integrated School of Cabuyao that includes features such as cashless payments, inventory tracking, and sales reporting.
-                  </Card.Text>
-                  <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
-                  {renderTechIcons(['JavaScript', 'React', 'Bootstrap', 'Node', 'Express', 'MySQL', 'PayMongo'])}
-                  <div className="d-flex gap-2">
-                    <Button className="inside-btn project-btn" size="sm" onClick={handleRedirectSJ}>
-                      🔗 See It Live
-                    </Button>
-                  </div>
-                </Card.Body>
-              </Card>
+              <div ref={projectCardFades[1].ref} style={projectCardFades[1].style}>
+                <Card className="h-100 shadow-sm">
+                  <Card.Img variant="top" src={ordering} alt="Project Thumbnail" />
+                  <Card.Body>
+                    <Card.Title>Cashless Ordering System</Card.Title>
+                    <Card.Text style={{ textAlign: 'justify' }}>
+                      An ordering system developed for Saint Jerome Integrated School of Cabuyao that includes features such as cashless payments, inventory tracking, and sales reporting.
+                    </Card.Text>
+                    <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
+                    {renderTechIcons(['JavaScript', 'React', 'Bootstrap', 'Node', 'Express', 'MySQL', 'PayMongo'])}
+                    <div className="d-flex gap-2">
+                      <Button className="inside-btn project-btn" size="sm" onClick={handleRedirectSJ}>
+                        🔗 See It Live
+                      </Button>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </div>
             </Col>
 
-            {/* Graal Era Calculator */}
+            {/* Project 3: Graal Era Calculator */}
             <Col md={6} lg={4} className="mb-4">
-              <Card className="h-100 shadow-sm">
-                <Card.Img variant="top" src={graal} alt="Project Thumbnail" />
-                <Card.Body>
-                  <Card.Title>Graal Era Sellables Calculator</Card.Title>
-                  <Card.Text style={{ textAlign: 'justify' }}>
-                    Designed for Graal Era players, this ratio calculator makes item trading easier, faster, and more accurate by reducing human errors and improving overall trading efficiency.
-                  </Card.Text>
-                  <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
-                  {renderTechIcons(['HTML', 'JavaScript', 'CSS'])}
-                  <div className="d-flex gap-2">
-                    <Button className="inside-btn project-btn" size="sm" onClick={handleRedirectGraal}>
-                      🔗 See It Live
-                    </Button>
-                  </div>
-                </Card.Body>
-              </Card>
+              <div ref={projectCardFades[2].ref} style={projectCardFades[2].style}>
+                <Card className="h-100 shadow-sm">
+                  <Card.Img variant="top" src={graal} alt="Project Thumbnail" />
+                  <Card.Body>
+                    <Card.Title>Graal Era Sellables Calculator</Card.Title>
+                    <Card.Text style={{ textAlign: 'justify' }}>
+                      Designed for Graal Era players, this ratio calculator makes item trading easier, faster, and more accurate by reducing human errors and improving overall trading efficiency.
+                    </Card.Text>
+                    <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
+                    {renderTechIcons(['HTML', 'JavaScript', 'CSS'])}
+                    <div className="d-flex gap-2">
+                      <Button className="inside-btn project-btn" size="sm" onClick={handleRedirectGraal}>
+                        🔗 See It Live
+                      </Button>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </div>
             </Col>
 
-            {/* Daily Digest */}
+            {/* Project 4: Daily Digest */}
             <Col md={6} lg={4} className="mb-4">
-              <Card className="h-100 shadow-sm">
-                <Card.Img variant="top" src={poop} alt="Project Thumbnail" />
-                <Card.Body>
-                  <Card.Title>Daily Digest</Card.Title>
-                  <Card.Text style={{ textAlign: 'justify' }}>
-                    A funny little poop tracker to keep tabs on your bathroom trips because even your poop deserves a little attention.
-                  </Card.Text>
-                  <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
-                  {renderTechIcons(['JavaScript', 'React', 'Vite', 'Bootstrap', 'Node', 'Express', 'PostgreSQL'])}
-                  <div className="d-flex gap-2">
-                    <Button className="inside-btn project-btn" size="sm" onClick={handleRedirectPoop}>
-                      🔗 See It Live
-                    </Button>
-                  </div>
-                </Card.Body>
-              </Card>
+              <div ref={projectCardFades[3].ref} style={projectCardFades[3].style}>
+                <Card className="h-100 shadow-sm">
+                  <Card.Img variant="top" src={poop} alt="Project Thumbnail" />
+                  <Card.Body>
+                    <Card.Title>Daily Digest</Card.Title>
+                    <Card.Text style={{ textAlign: 'justify' }}>
+                      A funny little poop tracker to keep tabs on your bathroom trips because even your poop deserves a little attention.
+                    </Card.Text>
+                    <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
+                    {renderTechIcons(['JavaScript', 'React', 'Vite', 'Bootstrap', 'Node', 'Express', 'PostgreSQL'])}
+                    <div className="d-flex gap-2">
+                      <Button className="inside-btn project-btn" size="sm" onClick={handleRedirectPoop}>
+                        🔗 See It Live
+                      </Button>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </div>
             </Col>
 
-            {/* Color Kind */}
+            {/* Project 5: Color Kind */}
             <Col md={6} lg={4} className="mb-4">
-              <Card className="h-100 shadow-sm">
-                <Card.Img variant="top" src={colorkind} alt="Project Thumbnail" />
-                <Card.Body>
-                  <Card.Title>Color Kind</Card.Title>
-                  <Card.Text style={{ textAlign: 'justify' }}>
-                    An accessibility-first web app that helps users generate, test, and save color palettes with real-time WCAG contrast checks and colorblind previews, ensuring inclusive, readable design for everyone—especially colorblind users. (Still in development)
-                  </Card.Text>
-                  <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
-                  {renderTechIcons(['TypeScript', 'React', 'Vite', 'Tailwind', 'Node', 'Express', 'PostgreSQL'])}
-                  <div className="d-flex gap-2">
-                    <Button className="inside-btn project-btn" size="sm" onClick={handleRedirectPoop}>
-                      🔗 See It Live
-                    </Button>
-                  </div>
-                </Card.Body>
-              </Card>
+              <div ref={projectCardFades[4].ref} style={projectCardFades[4].style}>
+                <Card className="h-100 shadow-sm">
+                  <Card.Img variant="top" src={colorkind} alt="Project Thumbnail" />
+                  <Card.Body>
+                    <Card.Title>Color Kind</Card.Title>
+                    <Card.Text style={{ textAlign: 'justify' }}>
+                      An accessibility-first web app that helps users generate, test, and save color palettes with real-time WCAG contrast checks and colorblind previews, ensuring inclusive, readable design for everyone—especially colorblind users. (Still in development)
+                    </Card.Text>
+                    <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
+                    {renderTechIcons(['TypeScript', 'React', 'Vite', 'Tailwind', 'Node', 'Express', 'PostgreSQL'])}
+                    <div className="d-flex gap-2">
+                      <Button className="inside-btn project-btn" size="sm" onClick={handleRedirectPoop}>
+                        🔗 See It Live
+                      </Button>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </div>
             </Col>
           </Row>
         </Container>
       </section>
 
-<section id="contact" className="py-5">
-  <div
-    className="background-blur"
-    style={{ backgroundImage: `url(${bg})` }}
-  ></div>
-
-  <div className="dark-overlay"></div>
-
-  <Container className="content-container">
-    <h2 className="text-center fw-bold mb-4">Get In Touch</h2>
-    <p className="text-center lead mb-5">
-      I'm always interested in new opportunities and collaborations.
-    </p>
-
-    <Row className="mb-5">
-      {/* Facebook */}
-      <Col md={4} className="text-center mb-4 d-flex flex-column">
-        <div className="mb-3">
-          <FaFacebook className="contact-icon" />
-        </div>
-        <h5 className="contact-header">Facebook</h5>
-        <p className="contact-paragraph">Connect with me on Facebook</p>
-        <div className="mt-auto">
-          <Button
-            className="rounded-pill px-4"
-            variant="light"
-            onClick={() => window.open('https://facebook.com', '_blank')}
-          >
-            Visit Facebook
-          </Button>
-        </div>
-      </Col>
-
-      {/* LinkedIn */}
-      <Col md={4} className="text-center mb-4 d-flex flex-column">
-        <div className="mb-3">
-          <span className="contact-icon">💼</span>
-        </div>
-        <h5 className="contact-header">LinkedIn</h5>
-        <p className="contact-paragraph">Professional networking</p>
-        <div className="mt-auto">
-          <Button
-            className="rounded-pill px-4"
-            variant="light"
-            onClick={() =>
-              window.open(
-                'https://www.linkedin.com/in/emanuel-domoos-30069336b/',
-                '_blank'
-              )
-            }
-          >
-            Visit LinkedIn
-          </Button>
-        </div>
-      </Col>
-
-      {/* GitHub */}
-      <Col md={4} className="text-center mb-4 d-flex flex-column">
-        <div className="mb-3">
-          <FaGithub className="contact-icon" />
-        </div>
-        <h5 className="contact-header">GitHub</h5>
-        <p className="contact-paragraph">Check out my projects</p>
-        <div className="mt-auto">
-          <Button
-            className="rounded-pill px-4"
-            variant="light"
-            onClick={() => window.open('https://github.com/EmanDomo', '_blank')}
-          >
-            Visit GitHub
-          </Button>
-        </div>
-      </Col>
-    </Row>
-
-    {/* Email section */}
-    <div className="text-center">
-      <div className="mb-3">
-        <span className="contact-icon">📧</span>
-      </div>
-      <h5 className="contact-header">Email</h5>
-      <p className="email-text">domoosemanuel32@gmail.com</p>
-    </div>
-  </Container>
-</section>
-
-
-
-      <footer className="py-4 border-top">
-        <div
-          className="background-blur"
-          style={{ backgroundImage: `url(${bg})` }}
-        ></div>
+      <section id="contact" className="py-5">
         <div className="dark-overlay"></div>
+        <Container className="content-container">
+          {/* Animated title and subtitle */}
+          <div ref={contactTitleFade.ref} style={contactTitleFade.style}>
+            <h2 className="text-center fw-bold mb-4">Get In Touch</h2>
+          </div>
 
+          <div ref={contactSubtitleFade.ref} style={contactSubtitleFade.style}>
+            <p className="text-center lead mb-5">
+              I'm always interested in new opportunities and collaborations.
+            </p>
+          </div>
+
+          <Row className="mb-5">
+            {/* Facebook */}
+            <Col md={4} className="text-center mb-4 d-flex flex-column">
+              <div ref={contactCardFades[0].ref} style={contactCardFades[0].style}>
+                <div className="mb-3">
+                  <FaFacebook className="contact-icon" />
+                </div>
+                <h5 className="contact-header">Facebook</h5>
+                <p className="contact-paragraph">Connect with me on Facebook</p>
+                <div className="mt-auto">
+                  <Button
+                    className="rounded-pill px-4"
+                    variant="light"
+                    onClick={() => window.open('https://facebook.com', '_blank')}
+                  >
+                    Visit Facebook
+                  </Button>
+                </div>
+              </div>
+            </Col>
+
+            {/* LinkedIn */}
+            <Col md={4} className="text-center mb-4 d-flex flex-column">
+              <div ref={contactCardFades[1].ref} style={contactCardFades[1].style}>
+                <div className="mb-3">
+                  <span className="contact-icon">💼</span>
+                </div>
+                <h5 className="contact-header">LinkedIn</h5>
+                <p className="contact-paragraph">Professional networking</p>
+                <div className="mt-auto">
+                  <Button
+                    className="rounded-pill px-4"
+                    variant="light"
+                    onClick={() =>
+                      window.open(
+                        'https://www.linkedin.com/in/emanuel-domoos-30069336b/',
+                        '_blank'
+                      )
+                    }
+                  >
+                    Visit LinkedIn
+                  </Button>
+                </div>
+              </div>
+            </Col>
+
+            {/* GitHub */}
+            <Col md={4} className="text-center mb-4 d-flex flex-column">
+              <div ref={contactCardFades[2].ref} style={contactCardFades[2].style}>
+                <div className="mb-3">
+                  <FaGithub className="contact-icon" />
+                </div>
+                <h5 className="contact-header">GitHub</h5>
+                <p className="contact-paragraph">Check out my projects</p>
+                <div className="mt-auto">
+                  <Button
+                    className="rounded-pill px-4"
+                    variant="light"
+                    onClick={() => window.open('https://github.com/EmanDomo', '_blank')}
+                  >
+                    Visit GitHub
+                  </Button>
+                </div>
+              </div>
+            </Col>
+          </Row>
+
+          {/* Email section */}
+          <div ref={contactEmailFade.ref} style={contactEmailFade.style}>
+            <div className="text-center">
+              <div className="mb-3">
+                <span className="contact-icon">📧</span>
+              </div>
+              <h5 className="contact-header">Email</h5>
+              <p className="email-text">domoosemanuel32@gmail.com</p>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      <footer className="py-4">
+        <div className="dark-overlay"></div>
         <Container className="content-container">
           <p className="text-center mb-0">© 2025 Eman Domoos. All rights reserved.</p>
         </Container>
       </footer>
-
     </div>
   );
 };
-
 export default Portfolio;
