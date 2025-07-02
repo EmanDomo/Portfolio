@@ -459,12 +459,44 @@ const Portfolio = () => {
               </div>
 
               <div ref={titleFade.ref} style={titleFade.style}>
-                <h1 className="display-4 fw-bold mb-3" style={{ color: '#FFFFFF' }}>
-                  <span className="typing-text">
-                    {displayText}
-                    <span className="cursor">|</span>
-                  </span>
-                </h1>
+                <div style={{ position: 'relative', marginBottom: '1rem' }}>
+                  {/* Invisible placeholder that reserves the exact space */}
+                  <h1
+                    className="display-4 fw-bold"
+                    style={{
+                      color: 'transparent', // Make it invisible but keeps the space para hindi gumalaw iba
+                      fontSize: 'clamp(1.5rem, 5vw, 3rem)',
+                      lineHeight: '1.2',
+                      textAlign: 'center',
+                      margin: 0,
+                      userSelect: 'none',
+                      pointerEvents: 'none'
+                    }}
+                  >
+                    Hi! I'm Emanuel Domoos {/*invisible text*/}
+                  </h1>
+
+                  {/* Actual animated text */}
+                  <h1
+                    className="display-4 fw-bold"
+                    style={{
+                      color: '#FFFFFF',
+                      fontSize: 'clamp(1.5rem, 5vw, 3rem)',
+                      lineHeight: '1.2',
+                      textAlign: 'center',
+                      margin: 0,
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0
+                    }}
+                  >
+                    <span className="typing-text">
+                      {displayText}
+                      <span className="cursor">|</span>
+                    </span>
+                  </h1>
+                </div>
               </div>
 
               <div ref={subtitleFade.ref} style={subtitleFade.style}>
