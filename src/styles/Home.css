@@ -1,76 +1,31 @@
-/* Updated CSS to fix iOS background issues */
-
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-/* Base body styles - remove fixed attachment for mobile */
 body {
   font-family: 'Roboto', sans-serif;
   background-image: url('../assets/bg.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  /* Remove background-attachment: fixed for mobile compatibility */
+  /* Removed background-attachment: fixed for iOS compatibility */
 }
 
-/* Desktop-only fixed background */
-@media (min-width: 768px) and (hover: hover) {
+/* iOS-specific fix to prevent blurry backgrounds */
+@supports (-webkit-touch-callout: none) {
+  body {
+    background-attachment: scroll;
+  }
+}
+
+/* For non-iOS devices, keep the fixed background */
+@media (hover: hover) and (pointer: fine) {
   body {
     background-attachment: fixed;
   }
 }
 
-/* Alternative solution: Use a pseudo-element for better mobile support */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('../assets/bg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: -1;
-  /* Hide on mobile to prevent issues */
-  display: none;
-}
-
-/* Show pseudo-element background only on desktop */
-@media (min-width: 768px) and (hover: hover) {
-  body {
-    background-image: none; /* Remove from body */
-  }
-  
-  body::before {
-    display: block; /* Show pseudo-element */
-  }
-}
-
-/* Mobile-specific background handling */
-@media (max-width: 767px) {
-  body {
-    background-attachment: scroll; /* Force scroll on mobile */
-    background-size: cover;
-    min-height: 100vh;
-  }
-}
-
-/* iOS-specific fixes */
-@supports (-webkit-overflow-scrolling: touch) {
-  body {
-    background-attachment: scroll !important;
-    -webkit-transform: translate3d(0, 0, 0); /* Vendor prefix */
-    transform: translate3d(0, 0, 0);         /* Standard property */
-  }
-}
-
-
 html {
   scroll-behavior: smooth !important;
 }
-
-/* Rest of your existing styles remain the same */
 
 /*HomeSection.css*/
 
@@ -306,6 +261,7 @@ html {
   border: none !important;
   background-color: #ffffff;
 }
+
 .inside-btn:focus,
 .inside-btn:active {
   outline: none !important;
@@ -610,6 +566,7 @@ html {
   font-size: 0.875rem;
 }
 
+/* Project Cards with glassmorphism effect */
 #projects .card {
   border-radius: 0.5rem;
   border: 2px solid rgba(157, 78, 221, 0.3);
