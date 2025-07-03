@@ -340,6 +340,10 @@ const Portfolio = () => {
     window.open('https://dailydigestpoopy.netlify.app/', '_blank');
   };
 
+  const handleRedirectColorKind = () => {
+    window.open('https://github.com/EmanDomo/ColorKind/', '_blank');
+  };
+
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
@@ -501,7 +505,7 @@ const Portfolio = () => {
 
               <div ref={subtitleFade.ref} style={subtitleFade.style}>
                 <p className="lead mb-4" style={{ color: '#FFFFFF' }}>
-                  Here, you can check out what I'm working on. I try my best to create things with ❤
+                  Here, you can check out what I'm working on. I do my best to create things with ❤
                 </p>
               </div>
             </Col>
@@ -712,7 +716,7 @@ const Portfolio = () => {
                     <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
                     {renderTechIcons(['TypeScript', 'React', 'Vite', 'Tailwind', 'Node', 'Express', 'PostgreSQL'])}
                     <div className="d-flex gap-2">
-                      <Button className="inside-btn project-btn" size="sm" onClick={handleRedirectPoop}>
+                      <Button className="inside-btn project-btn" size="sm" onClick={handleRedirectColorKind}>
                         🔗 See It Live
                       </Button>
                     </div>
