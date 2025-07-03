@@ -5,22 +5,8 @@ body {
   background-image: url('../assets/bg.jpg');
   background-size: cover;
   background-position: center;
+  background-attachment: fixed;
   background-repeat: no-repeat;
-  /* Removed background-attachment: fixed for iOS compatibility */
-}
-
-/* iOS-specific fix to prevent blurry backgrounds */
-@supports (-webkit-touch-callout: none) {
-  body {
-    background-attachment: scroll;
-  }
-}
-
-/* For non-iOS devices, keep the fixed background */
-@media (hover: hover) and (pointer: fine) {
-  body {
-    background-attachment: fixed;
-  }
 }
 
 html {
@@ -168,7 +154,6 @@ html {
   0%, 50% { opacity: 1; }
   51%, 100% { opacity: 0; }
 }
-
 .hero-section {
   padding-top: 100px;
   position: relative;
@@ -234,6 +219,10 @@ html {
   to { width: 100%; }
 }
 
+/* body {
+  background-color: red !important;
+} */
+
 .rounded-pill {
   background-color: #ffffff;
   color: rgb(0, 0, 0);
@@ -261,7 +250,6 @@ html {
   border: none !important;
   background-color: #ffffff;
 }
-
 .inside-btn:focus,
 .inside-btn:active {
   outline: none !important;
@@ -279,6 +267,7 @@ html {
   position: relative;
   color: #ffffff;
 }
+
 
 #about .dark-overlay {
   position: absolute;
@@ -335,6 +324,7 @@ html {
   bottom: 10px;
   left: 10px;
 }
+
 
 .decorative-dot-3,
 .decorative-dot-4,
@@ -397,6 +387,7 @@ html {
   border-color: #ffffff;
   color: #ffffff;
 }
+
 
 .profile-image-wrapper {
   position: relative;
@@ -498,12 +489,18 @@ html {
   transform: translateY(-2px);
 }
 
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
 /* SkillsSection.css */
 
 #skills {
   position: relative;
   color: #ffffff;
 }
+
 
 #skills .dark-overlay {
   position: absolute;
@@ -525,7 +522,7 @@ html {
   text-align: center;
   height: 100%;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: #ffffff;
 }
@@ -534,12 +531,14 @@ html {
   font-size: 2rem;
 }
 
+
 /* ProjectsSection.css */
 
 #projects {
   position: relative;
   color: #ffffff;
 }
+
 
 #projects .dark-overlay {
   position: absolute;
@@ -665,6 +664,7 @@ footer {
   position: relative;
   color: #ffffff;
 }
+
 
 footer .dark-overlay {
   position: absolute;
