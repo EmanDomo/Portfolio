@@ -1,0 +1,13 @@
+/* Footer */
+footer {
+  position: relative;
+  color: #ffffff;
+}
+
+footer .dark-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+footer .content-container {
+  color: #eaeaea;
+}

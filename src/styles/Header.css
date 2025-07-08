@@ -1,0 +1,27 @@
+/* Navigation */
+.nav-link {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nav-link.active {
+  color: white !important;
+  font-weight: bold;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: white;
+  border-radius: 3px;
+  animation: underline 0.3s ease forwards;
+}
+
+@keyframes underline {
+  from { width: 0; }
+  to { width: 100%; }
+}
