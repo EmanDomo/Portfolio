@@ -14,6 +14,7 @@ import poop from '../assets/poop.png';
 import colorkind from '../assets/colorkind.png';
 import paymongo from '../assets/paymongo_logo.png';
 import neonDB from '../assets/neondb.png';
+import visualstudiocode from '../assets/vscode-icon.png';
 import '../styles/Home.css';
 import {
   SiReact,
@@ -63,7 +64,7 @@ const Portfolio = () => {
 
   const skills = [
     'HTML', 'CSS', 'Bootstrap', 'Tailwind', 'JavaScript', 'React', 'Vue', 'Vite',
-    'Node', 'Express', 'MySQL', 'PostgreSQL', 'NeonDB', 'Vercel', 'Netlify', 'Render',
+    'Node', 'Express', 'MySQL', 'PostgreSQL', 'VS Code', 'NeonDB', 'Vercel', 'Netlify', 'Render',
     'Git', 'Github', 'AI Tools'
   ];
 
@@ -89,6 +90,13 @@ const Portfolio = () => {
     'Git': <SiGit className="text-danger" />,
     'Github': <SiGithub className="text-white" />,
     'AI Tools': <SiOpenai className="text-success" />,
+    'VS Code': (
+      <img
+        src={visualstudiocode}
+        alt="VS Code"
+        style={{ width: '40px', height: '40px', objectFit: 'contain' }}
+      />
+    ),
     'NeonDB': (
       <img
         src={neonDB}
