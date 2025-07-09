@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import '../styles/Header.css';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo2.png';
 
 const Header = ({ activeSection }) => {
   return (
