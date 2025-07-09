@@ -2,6 +2,7 @@
 .nav-link {
   position: relative;
   transition: all 0.3s ease;
+  padding: 0.5rem 1rem !important;
 }
 
 .nav-link.active {
@@ -25,6 +26,7 @@
   from { width: 0; }
   to { width: 100%; }
 }
+
 /* Custom navbar toggler for dark background */
 .navbar-toggler {
   border: 1px solid white !important;
@@ -37,4 +39,184 @@
 
 .navbar-toggler:focus {
   box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+}
+
+/* Logo responsiveness */
+.navbar-brand img {
+  max-width: 40px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.navbar-brand {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+/* Desktop and large screens */
+@media (min-width: 992px) {
+  .navbar-nav {
+    gap: 1rem;
+  }
+  
+  .nav-link {
+    padding: 0.5rem 1rem !important;
+  }
+  
+  .navbar-brand {
+    font-size: 1.5rem;
+  }
+  
+  .navbar-brand img {
+    max-width: 45px;
+  }
+}
+
+/* iPad and tablet screens */
+@media (max-width: 991px) and (min-width: 768px) {
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+  
+  .navbar-brand img {
+    max-width: 35px;
+    margin-right: 8px;
+  }
+  
+  /* Collapsed navbar styling */
+  .navbar-collapse {
+    margin-top: 1rem;
+  }
+  
+  .navbar-nav {
+    text-align: center;
+    padding: 1rem 0;
+  }
+  
+  .nav-link {
+    padding: 0.75rem 1rem !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 0;
+  }
+  
+  .nav-link:last-child {
+    border-bottom: none;
+  }
+  
+  .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+  }
+  
+  /* Active state adjustment for mobile */
+  .nav-link.active::after {
+    display: none;
+  }
+  
+  .nav-link.active {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 5px;
+  }
+}
+
+/* Mobile screens */
+@media (max-width: 767px) {
+  .navbar-brand {
+    font-size: 1.1rem;
+  }
+  
+  .navbar-brand img {
+    max-width: 30px;
+    margin-right: 6px;
+  }
+  
+  .navbar-toggler {
+    padding: 3px 6px;
+  }
+  
+  /* Collapsed navbar styling for mobile */
+  .navbar-collapse {
+    margin-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1rem;
+  }
+  
+  .navbar-nav {
+    text-align: center;
+    padding: 0.5rem 0;
+  }
+  
+  .nav-link {
+    padding: 0.8rem 1rem !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 0;
+    font-size: 1rem;
+  }
+  
+  .nav-link:last-child {
+    border-bottom: none;
+  }
+  
+  .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+  }
+  
+  /* Active state adjustment for mobile */
+  .nav-link.active::after {
+    display: none;
+  }
+  
+  .nav-link.active {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 5px;
+  }
+}
+
+/* Small mobile screens */
+@media (max-width: 480px) {
+  .navbar-brand {
+    font-size: 1rem;
+  }
+  
+  .navbar-brand img {
+    max-width: 25px;
+    margin-right: 5px;
+  }
+  
+  .nav-link {
+    padding: 0.6rem 0.8rem !important;
+    font-size: 0.9rem;
+  }
+  
+  .navbar-toggler {
+    padding: 2px 4px;
+  }
+}
+
+/* Smooth scrolling for navigation links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Fix for navbar overlay */
+.navbar {
+  z-index: 1030;
+}
+
+/* Ensure proper spacing for fixed navbar */
+body {
+  padding-top: 76px;
+}
+
+@media (max-width: 767px) {
+  body {
+    padding-top: 70px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding-top: 65px;
+  }
 }

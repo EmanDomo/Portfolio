@@ -296,13 +296,13 @@ const Portfolio = () => {
                 <div className="accent-bar-top"></div>
 
                 <div className="mb-4">
-                  <p className="text-content">
+                  <p className="text-content text-center text-md-start">
                     I am a graduate of <strong>Bachelor of Science in Information Technology</strong> from the University of Cabuyao (UC), seeking an entry-level web developer position. I am motivated to gain practical experience, develop my skills on the job, and contribute to team projects. I am committed to continuous learning and aim to build a strong foundation in web development.
                   </p>
                 </div>
 
                 <div className="mb-4">
-                  <p className="text-content">
+                  <p className="text-content text-center text-md-start">
                     I have knowledge in <strong>HTML, CSS, and JavaScript</strong>, with hands-on experience in building full-stack web applications using <strong>React, Node.js, Express, and MySQL. </strong>I am also familiar with version control systems such as Git and GitHub, including collaborative workflows, branching strategies, and pull request management. I am currently exploring AI platforms such as ChatGPT and OpenAI to assist with coding, debugging, research, and enhancing overall productivity.
                   </p>
                 </div>
@@ -316,6 +316,14 @@ const Portfolio = () => {
         <div className="dark-overlay"></div>
         <Container className="content-container">
           <h2 className="text-center fw-bold mb-5">Skills</h2>
+
+          <div className="mb-4">
+            <p className="text-content-skills">
+              A collection of technologies I've used in real-world projects, including frontend frameworks, backend tools, databases, deployment platforms, and developer environments.
+
+
+            </p>
+          </div>
 
           {/* Desktop view - shows text with icons */}
           <Row className='mb-5 justify-content-center d-none d-md-flex'>
@@ -451,6 +459,14 @@ const Portfolio = () => {
         <Container className="content-container">
           <h2 className="text-center fw-bold mb-5">My Projects</h2>
 
+          <div className="mb-4">
+            <p className="text-content-projects">
+              These projects showcase my work primarily as a backend developer, handling database design, API development, authentication, and server-side logic with occasional frontend contributions for full-stack understanding.
+
+
+            </p>
+          </div>
+
           <div className="projects-list">
             {/* Project 1 */}
             <div className="project-item">
@@ -461,10 +477,10 @@ const Portfolio = () => {
                 <h3 className="project-title">DepEd Ticketing System</h3>
                 <div className="project-description">
                   <p className="main-description">A web-based system for DepEd Cabuyao streamlines and automates the process of ticketing and account requests, allowing users to submit, track, and manage their requests efficiently online.</p>
-                                   <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
+                  <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
                   <div className="project-tech">
-                  {renderTechIcons(['JavaScript', 'React', 'Vite', 'Bootstrap', 'Node', 'Express', 'MySQL'])}
-                </div>
+                    {renderTechIcons(['JavaScript', 'React', 'Vite', 'Bootstrap', 'Node', 'Express', 'MySQL'])}
+                  </div>
                   <div className="features-list">
                     <p>Designed and implemented RESTful APIs using Node.js and Express to handle ticket creation, tracking, and user management.</p>
                     <p>Integrated MySQL for structured data storage, with optimized queries for ticket resolution tracking and audit logs.</p>
@@ -490,12 +506,12 @@ const Portfolio = () => {
                 <h3 className="project-title">Cashless Ordering System</h3>
                 <div className="project-description">
                   <p className="main-description">An ordering system developed for Saint Jerome Integrated School of Cabuyao that includes features such as cashless payments, inventory tracking, and sales reporting.</p>
-                                      <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
-                                                      <div className="project-tech">
-                  {renderTechIcons(['JavaScript', 'React', 'Bootstrap', 'Node', 'Express', 'MySQL', 'PayMongo'])}
-                </div>
+                  <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
+                  <div className="project-tech">
+                    {renderTechIcons(['JavaScript', 'React', 'Bootstrap', 'Node', 'Express', 'MySQL', 'PayMongo'])}
+                  </div>
                   <div className="features-list">
-                    <p>Integrated cashless payment methods (GCash and Maya) using the PayMongo API for secure and real-time transaction processing.</p>
+                    <p>Integrated cashless payment methods (GCash and Maya) using the PayMongo test API keys to simulate and validate transaction workflows during development.</p>
                     <p>Developed backend logic to handle payment status, transaction validation, and customer feedback flows.</p>
                     <p>Implemented inventory management system using MySQL, enabling accurate stock tracking, automated stock deduction, and low-stock alerts.</p>
                     <p>Built automated sales reporting with real-time data aggregation to support performance analysis and decision-making.</p>
@@ -512,7 +528,7 @@ const Portfolio = () => {
             </div>
 
             {/* Project 3 */}
-            <div className="project-item">
+            {/* <div className="project-item">
               <div className="project-image">
                 <img src={graal} alt="Graal Era Sellables Calculator" />
               </div>
@@ -521,9 +537,9 @@ const Portfolio = () => {
                 <div className="project-description">
                   <p className="main-description">Designed for Graal Era players, this ratio calculator makes item trading easier, faster, and more accurate by reducing human errors and improving overall trading efficiency.</p>
                   <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
-                                  <div className="project-tech">
-                  {renderTechIcons(['HTML', 'JavaScript', 'CSS'])}
-                </div>
+                  <div className="project-tech">
+                    {renderTechIcons(['HTML', 'JavaScript', 'CSS'])}
+                  </div>
                   <div className="features-list">
                     <p>Implemented all business logic in vanilla JavaScript, ensuring accurate and real-time calculations.</p>
                     <p>Used HTML, CSS, and JavaScript to deliver a fast, lightweight, and fully client-side tool for players.</p>
@@ -536,7 +552,7 @@ const Portfolio = () => {
                   </Button>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* Project 4 */}
             <div className="project-item">
@@ -546,11 +562,13 @@ const Portfolio = () => {
               <div className="project-content">
                 <h3 className="project-title">Daily Digest</h3>
                 <div className="project-description">
-                  <p className="main-description">A funny little poop tracker to keep tabs on your bathroom trips because even your poop deserves a little attention.</p>
+                  <p className="main-description">
+                    Originally built as a personal tool to monitor my own bowel movements, this poop tracker is now available to the public for anyone who wants to keep track of their bathroom habits.
+                  </p>
                   <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
-                                  <div className="project-tech">
-                  {renderTechIcons(['JavaScript', 'React', 'Vite', 'Bootstrap', 'Node', 'Express', 'PostgreSQL'])}
-                </div>
+                  <div className="project-tech">
+                    {renderTechIcons(['JavaScript', 'React', 'Vite', 'Bootstrap', 'Node', 'Express', 'PostgreSQL'])}
+                  </div>
                   <div className="features-list">
                     <p>Built with a full-stack JavaScript stack using React (Vite) for the frontend and Node.js/Express for the backend.</p>
                     <p>Followed the MVC (Model-View-Controller) architectural pattern to separate concerns and improve maintainability.</p>
@@ -577,9 +595,9 @@ const Portfolio = () => {
                 <div className="project-description">
                   <p className="main-description">An accessibility-first web app that helps users generate, test, and save color palettes with real-time WCAG contrast checks and colorblind previews, ensuring inclusive, readable design for everyone—especially colorblind users. (Still in development)</p>
                   <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
-                                  <div className="project-tech">
-                  {renderTechIcons(['TypeScript', 'React', 'Vite', 'Tailwind', 'Node', 'Express', 'PostgreSQL'])}
-                </div>
+                  <div className="project-tech">
+                    {renderTechIcons(['TypeScript', 'React', 'Vite', 'Tailwind', 'Node', 'Express', 'PostgreSQL'])}
+                  </div>
                   <div className="features-list">
                     <p>Features real-time WCAG contrast checks and colorblind previews to support inclusive, readable design.</p>
                     <p>Implemented using TypeScript and React with Vite for strong typing and fast frontend development.</p>

@@ -424,7 +424,71 @@ html {
   padding-right: 1rem;
 }
 
+/* iPad Responsive Adjustments */
+@media (max-width: 1024px) and (min-width: 768px) {
+  /* Make profile image smaller on iPad */
+  .profile-image {
+    width: 250px !important;
+    height: 250px !important;
+  }
+  
+  /* Adjust background circle for smaller profile */
+  .profile-bg-circle {
+    width: 270px;
+    height: 270px;
+  }
+  
+  /* Center content on iPad */
+  #about .text-content {
+    text-align: center !important;
+    max-width: 100%;
+    padding-right: 0;
+  }
+  
+  /* Reduce font size slightly for better fit */
+  .text-content {
+    font-size: 1rem;
+  }
+  
+  /* Add more spacing between rows on iPad */
+  #about .row {
+    margin-bottom: 2rem;
+  }
+  
+  /* Center the accent bar on iPad */
+  .accent-bar-top {
+    margin: 0 auto 1rem auto;
+  }
+}
 
+/* Small tablet adjustments */
+@media (max-width: 991px) {
+  /* Stack content vertically with proper spacing */
+  #about .col-md-4,
+  #about .col-md-8 {
+    margin-bottom: 2rem;
+  }
+  
+  /* Ensure profile image is centered */
+  #about .text-center {
+    text-align: center !important;
+  }
+  
+  /* Adjust text alignment for smaller screens */
+  .text-content {
+    text-align: center !important;
+  }
+}
+
+/* Animation keyframes for floating dots */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
 /* ===== SKILLS SECTION ===== */
 #skills {
   position: relative;
@@ -494,7 +558,18 @@ html {
   border-top: 5px solid rgba(0, 0, 0, 0.9);
 }
 
-/* ===== PROJECTS SECTION ===== */
+.text-content-skills {
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.6;
+  font-size: 1.05rem;
+  letter-spacing: 0.2px;
+}
+
+#about .text-content-skills {
+  max-width: 750px;
+  padding-right: 1rem;
+}
 /* ===== PROJECTS SECTION ===== */
 #projects {
   position: relative;
@@ -687,6 +762,19 @@ html {
     width: 10px;
     height: 10px;
   }
+}
+
+.text-content-projects {
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.6;
+  font-size: 1.05rem;
+  letter-spacing: 0.2px;
+}
+
+#about .text-content-projects {
+  max-width: 750px;
+  padding-right: 1rem;
 }
 /* ===== CONTACT SECTION ===== */
 #contact {
