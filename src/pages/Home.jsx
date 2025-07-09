@@ -244,6 +244,15 @@ const Portfolio = () => {
               <p className="lead mb-4 hero-lead-text">
                 Here, you can check out what I'm working on. I do my best to create things with ❤
               </p>
+
+              <a
+                href="/Emanuel-Domoos-Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-sm ms-2 rounded-pill"
+              >
+                View Resume
+              </a>
             </Col>
           </Row>
         </Container>
@@ -286,19 +295,9 @@ const Portfolio = () => {
 
                 <div className="mb-4">
                   <p className="text-content">
-                    I have knowledge in <strong>HTML, CSS, and JavaScript</strong>, with hands-on experience in building full-stack web applications using React, Node.js, Express, and MySQL. I am also familiar with version control systems such as Git and GitHub, including collaborative workflows, branching strategies, and pull request management. Additionally, I am skilled in using productivity tools like Microsoft Office Suite (Word, Excel, and PowerPoint) for documentation, data analysis, and presentations. I am currently exploring AI platforms such as ChatGPT and OpenAI to assist with coding, debugging, research, and enhancing overall productivity.
+                    I have knowledge in <strong>HTML, CSS, and JavaScript</strong>, with hands-on experience in building full-stack web applications using <strong>React, Node.js, Express, and MySQL. </strong>I am also familiar with version control systems such as Git and GitHub, including collaborative workflows, branching strategies, and pull request management. I am currently exploring AI platforms such as ChatGPT and OpenAI to assist with coding, debugging, research, and enhancing overall productivity.
                   </p>
                 </div>
-
-                <a
-                  href="/Emanuel-Domoos-Resume.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-sm ms-2 rounded-pill"
-                >
-                  View Resume
-                </a>
-
               </div>
             </Col>
           </Row>
@@ -310,7 +309,8 @@ const Portfolio = () => {
         <Container className="content-container">
           <h2 className="text-center fw-bold mb-5">Skills</h2>
 
-          <Row className='mb-5 justify-content-center'>
+          {/* Desktop view - shows text with icons */}
+          <Row className='mb-5 justify-content-center d-none d-md-flex'>
             {skills.map((skill) => (
               <Col sm={6} md={4} lg={3} key={skill} className="mb-3">
                 <Card className="skill-card">
@@ -325,9 +325,56 @@ const Portfolio = () => {
             ))}
           </Row>
 
+          {/* Mobile view - shows only icons with tooltips */}
+          <div className="d-md-none mb-5">
+            <div className="d-flex flex-wrap justify-content-center gap-3">
+              {skills.map((skill, index) => (
+                <div
+                  className="mobile-skill-icon-container"
+                >
+                  <div
+                    className="mobile-skill-icon-wrapper"
+                    onTouchStart={(e) => {
+                      const tooltip = e.currentTarget.parentElement.querySelector('.mobile-skill-tooltip');
+                      const icon = e.currentTarget;
+                      if (tooltip && icon) {
+                        tooltip.style.opacity = '1';
+                        tooltip.style.visibility = 'visible';
+                        icon.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+                        icon.style.transform = 'scale(1.05)';
+                      }
+                    }}
+                    onTouchEnd={(e) => {
+                      const tooltip = e.currentTarget.parentElement.querySelector('.mobile-skill-tooltip');
+                      const icon = e.currentTarget;
+                      if (tooltip && icon) {
+                        setTimeout(() => {
+                          tooltip.style.opacity = '0';
+                          tooltip.style.visibility = 'hidden';
+                          icon.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                          icon.style.transform = 'scale(1)';
+                        }, 1500); // Hide after 1.5 seconds
+                      }
+                    }}
+                  >
+                    {techIcons[skill] || <FaTools className="text-secondary" />}
+                  </div>
+
+                  <div
+                    className="mobile-skill-tooltip"
+                  >
+                    {skill}
+                    <div className="mobile-skill-tooltip-arrow" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
           <h2 className="text-center fw-bold mb-5">Currently Learning</h2>
 
-          <Row className="justify-content-center">
+          {/* Desktop view for currently learning */}
+          <Row className="justify-content-center d-none d-md-flex">
             {learning.map((skill) => (
               <Col sm={6} md={4} lg={3} key={skill} className="mb-3">
                 <Card className="skill-card">
@@ -341,6 +388,53 @@ const Portfolio = () => {
               </Col>
             ))}
           </Row>
+
+          {/* Mobile view for currently learning */}
+          <div className="d-md-none">
+            <div className="d-flex flex-wrap justify-content-center gap-3">
+              {learning.map((skill, index) => (
+                <div
+                  key={index}
+                  className="mobile-skill-icon-container"
+                >
+                  <div
+                    className="mobile-skill-icon-wrapper"
+                    onTouchStart={(e) => {
+                      const tooltip = e.currentTarget.parentElement.querySelector('.mobile-skill-tooltip');
+                      const icon = e.currentTarget;
+                      if (tooltip && icon) {
+                        tooltip.style.opacity = '1';
+                        tooltip.style.visibility = 'visible';
+                        icon.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+                        icon.style.transform = 'scale(1.05)';
+                      }
+                    }}
+                    onTouchEnd={(e) => {
+                      const tooltip = e.currentTarget.parentElement.querySelector('.mobile-skill-tooltip');
+                      const icon = e.currentTarget;
+                      if (tooltip && icon) {
+                        setTimeout(() => {
+                          tooltip.style.opacity = '0';
+                          tooltip.style.visibility = 'hidden';
+                          icon.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                          icon.style.transform = 'scale(1)';
+                        }, 1500);
+                      }
+                    }}
+                  >
+                    {techIcons[skill] || <FaTools className="text-secondary" />}
+                  </div>
+
+                  <div
+                    className="mobile-skill-tooltip"
+                  >
+                    {skill}
+                    <div className="mobile-skill-tooltip-arrow" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </Container>
       </section>
 
@@ -349,102 +443,152 @@ const Portfolio = () => {
         <Container className="content-container">
           <h2 className="text-center fw-bold mb-5">My Projects</h2>
 
-          <Row>
-            <Col md={6} lg={4} className="mb-4">
-              <Card className="h-100 shadow-sm">
-                <Card.Img variant="top" src={deped} alt="Project Thumbnail" />
-                <Card.Body>
-                  <Card.Title>DepEd Ticketing System</Card.Title>
-                  <Card.Text>
-                    A web-based system for DepEd Cabuyao streamlines and automates the process of ticketing and account requests, allowing users to submit, track, and manage their requests efficiently online.
-                  </Card.Text>
-                  <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
+          <div className="projects-list">
+            {/* Project 1 */}
+            <div className="project-item">
+              <div className="project-image">
+                <img src={deped} alt="DepEd Ticketing System" />
+              </div>
+              <div className="project-content">
+                <h3 className="project-title">DepEd Ticketing System</h3>
+                <div className="project-description">
+                  <p className="main-description">A web-based system for DepEd Cabuyao streamlines and automates the process of ticketing and account requests, allowing users to submit, track, and manage their requests efficiently online.</p>
+                                   <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
+                  <div className="project-tech">
                   {renderTechIcons(['JavaScript', 'React', 'Vite', 'Bootstrap', 'Node', 'Express', 'MySQL'])}
-                  <div className="d-flex gap-2">
-                    <Button className="inside-btn project-btn" size="sm" onClick={handleRedirectDeped}>
-                      🔗 See It Live
-                    </Button>
+                </div>
+                  <div className="features-list">
+                    <p>Designed and implemented RESTful APIs using Node.js and Express to handle ticket creation, tracking, and user management.</p>
+                    <p>Integrated MySQL for structured data storage, with optimized queries for ticket resolution tracking and audit logs.</p>
+                    <p>Secured backend routes with middleware-based authentication and role-based authorization.</p>
+                    <p>Handled server-side form validation and error handling to improve reliability and data integrity.</p>
+                    <p>Coordinated backend logic with frontend forms built in React via API endpoints.</p>
                   </div>
-                </Card.Body>
-              </Card>
-            </Col>
+                </div>
+                <div className="project-actions">
+                  <Button className="inside-btn project-btn" size="sm" onClick={handleRedirectDeped}>
+                    🔗 See It Live
+                  </Button>
+                </div>
+              </div>
+            </div>
 
-            <Col md={6} lg={4} className="mb-4">
-              <Card className="h-100 shadow-sm">
-                <Card.Img variant="top" src={ordering} alt="Project Thumbnail" />
-                <Card.Body>
-                  <Card.Title>Cashless Ordering System</Card.Title>
-                  <Card.Text>
-                    An ordering system developed for Saint Jerome Integrated School of Cabuyao that includes features such as cashless payments, inventory tracking, and sales reporting.
-                  </Card.Text>
-                  <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
+            {/* Project 2 */}
+            <div className="project-item">
+              <div className="project-image">
+                <img src={ordering} alt="Cashless Ordering System" />
+              </div>
+              <div className="project-content">
+                <h3 className="project-title">Cashless Ordering System</h3>
+                <div className="project-description">
+                  <p className="main-description">An ordering system developed for Saint Jerome Integrated School of Cabuyao that includes features such as cashless payments, inventory tracking, and sales reporting.</p>
+                                      <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
+                                                      <div className="project-tech">
                   {renderTechIcons(['JavaScript', 'React', 'Bootstrap', 'Node', 'Express', 'MySQL', 'PayMongo'])}
-                  <div className="d-flex gap-2">
-                    <Button className="inside-btn project-btn" size="sm" onClick={handleRedirectSJ}>
-                      🔗 See It Live
-                    </Button>
+                </div>
+                  <div className="features-list">
+                    <p>Integrated cashless payment methods (GCash and Maya) using the PayMongo API for secure and real-time transaction processing.</p>
+                    <p>Developed backend logic to handle payment status, transaction validation, and customer feedback flows.</p>
+                    <p>Implemented inventory management system using MySQL, enabling accurate stock tracking, automated stock deduction, and low-stock alerts.</p>
+                    <p>Built automated sales reporting with real-time data aggregation to support performance analysis and decision-making.</p>
+                    <p>Ensured backend reliability through input validation, error handling, and structured database design.</p>
                   </div>
-                </Card.Body>
-              </Card>
-            </Col>
+                </div>
 
-            <Col md={6} lg={4} className="mb-4">
-              <Card className="h-100 shadow-sm">
-                <Card.Img variant="top" src={graal} alt="Project Thumbnail" />
-                <Card.Body>
-                  <Card.Title>Graal Era Sellables Calculator</Card.Title>
-                  <Card.Text>
-                    Designed for Graal Era players, this ratio calculator makes item trading easier, faster, and more accurate by reducing human errors and improving overall trading efficiency.
-                  </Card.Text>
+                <div className="project-actions">
+                  <Button className="inside-btn project-btn" size="sm" onClick={handleRedirectSJ}>
+                    🔗 See It Live
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            {/* Project 3 */}
+            <div className="project-item">
+              <div className="project-image">
+                <img src={graal} alt="Graal Era Sellables Calculator" />
+              </div>
+              <div className="project-content">
+                <h3 className="project-title">Graal Era Sellables Calculator</h3>
+                <div className="project-description">
+                  <p className="main-description">Designed for Graal Era players, this ratio calculator makes item trading easier, faster, and more accurate by reducing human errors and improving overall trading efficiency.</p>
                   <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
+                                  <div className="project-tech">
                   {renderTechIcons(['HTML', 'JavaScript', 'CSS'])}
-                  <div className="d-flex gap-2">
-                    <Button className="inside-btn project-btn" size="sm" onClick={handleRedirectGraal}>
-                      🔗 See It Live
-                    </Button>
+                </div>
+                  <div className="features-list">
+                    <p>Implemented all business logic in vanilla JavaScript, ensuring accurate and real-time calculations.</p>
+                    <p>Used HTML, CSS, and JavaScript to deliver a fast, lightweight, and fully client-side tool for players.</p>
                   </div>
-                </Card.Body>
-              </Card>
-            </Col>
+                </div>
 
-            <Col md={6} lg={4} className="mb-4">
-              <Card className="h-100 shadow-sm">
-                <Card.Img variant="top" src={poop} alt="Project Thumbnail" />
-                <Card.Body>
-                  <Card.Title>Daily Digest</Card.Title>
-                  <Card.Text>
-                    A funny little poop tracker to keep tabs on your bathroom trips because even your poop deserves a little attention.
-                  </Card.Text>
+                <div className="project-actions">
+                  <Button className="inside-btn project-btn" size="sm" onClick={handleRedirectGraal}>
+                    🔗 See It Live
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            {/* Project 4 */}
+            <div className="project-item">
+              <div className="project-image">
+                <img src={poop} alt="Daily Digest" />
+              </div>
+              <div className="project-content">
+                <h3 className="project-title">Daily Digest</h3>
+                <div className="project-description">
+                  <p className="main-description">A funny little poop tracker to keep tabs on your bathroom trips because even your poop deserves a little attention.</p>
                   <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
+                                  <div className="project-tech">
                   {renderTechIcons(['JavaScript', 'React', 'Vite', 'Bootstrap', 'Node', 'Express', 'PostgreSQL'])}
-                  <div className="d-flex gap-2">
-                    <Button className="inside-btn project-btn" size="sm" onClick={handleRedirectPoop}>
-                      🔗 See It Live
-                    </Button>
+                </div>
+                  <div className="features-list">
+                    <p>Built with a full-stack JavaScript stack using React (Vite) for the frontend and Node.js/Express for the backend.</p>
+                    <p>Followed the MVC (Model-View-Controller) architectural pattern to separate concerns and improve maintainability.</p>
+                    <p>Utilized PostgreSQL for data storage, hosted on NeonDB for serverless cloud-based persistence.</p>
+                    <p>Deployed backend to Render and frontend to Netlify, ensuring seamless CI/CD and reliable availability.</p>
                   </div>
-                </Card.Body>
-              </Card>
-            </Col>
+                </div>
 
-            <Col md={6} lg={4} className="mb-4">
-              <Card className="h-100 shadow-sm">
-                <Card.Img variant="top" src={colorkind} alt="Project Thumbnail" />
-                <Card.Body>
-                  <Card.Title>Color Kind</Card.Title>
-                  <Card.Text>
-                    An accessibility-first web app that helps users generate, test, and save color palettes with real-time WCAG contrast checks and colorblind previews, ensuring inclusive, readable design for everyone—especially colorblind users. (Still in development)
-                  </Card.Text>
+                <div className="project-actions">
+                  <Button className="inside-btn project-btn" size="sm" onClick={handleRedirectPoop}>
+                    🔗 See It Live
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            {/* Project 5 */}
+            <div className="project-item">
+              <div className="project-image">
+                <img src={colorkind} alt="Color Kind" />
+              </div>
+              <div className="project-content">
+                <h3 className="project-title">Color Kind</h3>
+                <div className="project-description">
+                  <p className="main-description">An accessibility-first web app that helps users generate, test, and save color palettes with real-time WCAG contrast checks and colorblind previews, ensuring inclusive, readable design for everyone—especially colorblind users. (Still in development)</p>
                   <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
+                                  <div className="project-tech">
                   {renderTechIcons(['TypeScript', 'React', 'Vite', 'Tailwind', 'Node', 'Express', 'PostgreSQL'])}
-                  <div className="d-flex gap-2">
-                    <Button className="inside-btn project-btn" size="sm" onClick={handleRedirectColorKind}>
-                      🔗 See It Live
-                    </Button>
+                </div>
+                  <div className="features-list">
+                    <p>Features real-time WCAG contrast checks and colorblind previews to support inclusive, readable design.</p>
+                    <p>Implemented using TypeScript and React with Vite for strong typing and fast frontend development.</p>
+                    <p>Styled using Tailwind CSS, embracing utility-first design while learning modern CSS best practices.</p>
+                    <p>Structured the backend with Node.js, Express, and PostgreSQL, following the MVC architecture for clean code separation.</p>
+                    <p>App is currently under development, with ongoing improvements in UI/UX, accessibility tooling, and TypeScript proficiency.</p>
                   </div>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
+                </div>
+
+                <div className="project-actions">
+                  <Button className="inside-btn project-btn" size="sm" onClick={handleRedirectColorKind}>
+                    🔗 See It Live
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
         </Container>
       </section>
 
