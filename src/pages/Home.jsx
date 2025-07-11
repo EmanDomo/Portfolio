@@ -84,7 +84,7 @@ const Portfolio = () => {
   const [isDeleting, setIsDeleting] = useState(false);
   const fullText = "Hi! I'm Emanuel Domoos";
 
-  // Fade animation refs
+  // Fade
   const [heroRef, heroFadeStyle] = useScrollFade(0.1);
 
   // about
@@ -99,15 +99,19 @@ const Portfolio = () => {
   const [learningTitleRef, learningTitleFadeStyle] = useScrollFade(0.2);
   const [learningGridRef, learningGridFadeStyle] = useScrollFade(0.2);
 
-  // Project description fade animations
+  // Project
   const [projectsTitleRef, projectsTitleFadeStyle] = useScrollFade(0.2);
   const [projectsDescRef, projectsDescFadeStyle] = useScrollFade(0.2);
   const [project1DescRef, project1DescFadeStyle] = useScrollFade(0.2);
   const [project2DescRef, project2DescFadeStyle] = useScrollFade(0.2);
   const [project3DescRef, project3DescFadeStyle] = useScrollFade(0.2);
   const [project4DescRef, project4DescFadeStyle] = useScrollFade(0.2);
+  const [project1Ref, project1FadeStyle] = useScrollFade(0.2);
+  const [project2Ref, project2FadeStyle] = useScrollFade(0.2);
+  const [project3Ref, project3FadeStyle] = useScrollFade(0.2);
+  const [project4Ref, project4FadeStyle] = useScrollFade(0.2);
 
-  // Contact section fade animations
+  // Contact
   const [contactTitleRef, contactTitleFadeStyle] = useScrollFade(0.2);
   const [contactIntroRef, contactIntroFadeStyle] = useScrollFade(0.2);
   const [contactCard1Ref, contactCard1FadeStyle] = useScrollFade(0.2);
@@ -115,7 +119,8 @@ const Portfolio = () => {
   const [contactCard3Ref, contactCard3FadeStyle] = useScrollFade(0.2);
   const [contactEmailSectionRef, contactEmailSectionFadeStyle] = useScrollFade(0.2);
 
-  // Typewriter animation effect
+
+  // Typewriter animation
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (!isDeleting && currentIndex < fullText.length) {
@@ -280,12 +285,6 @@ const Portfolio = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Project fade animations
-  const [project1Ref, project1FadeStyle] = useScrollFade(0.2);
-  const [project2Ref, project2FadeStyle] = useScrollFade(0.2);
-  const [project3Ref, project3FadeStyle] = useScrollFade(0.2);
-  const [project4Ref, project4FadeStyle] = useScrollFade(0.2);
-
   return (
     <div>
       <Header activeSection={activeSection} />
@@ -330,13 +329,13 @@ const Portfolio = () => {
                   Here, you can check out what I'm working on. I do my best to create things with ❤
                 </p>
 
-<a
-  href="/Emanuel-Domoos-Resume.pdf"
-  download
-  className="btn btn-sm ms-2 rounded-pill"
->
-  Download Resume
-</a>
+                <a
+                  href="/Emanuel-Domoos-Resume.pdf"
+                  download
+                  className="btn btn-sm ms-2 rounded-pill"
+                >
+                  Download Resume
+                </a>
 
               </div>
             </Col>
