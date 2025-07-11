@@ -330,14 +330,14 @@ const Portfolio = () => {
                   Here, you can check out what I'm working on. I do my best to create things with ❤
                 </p>
 
-                <a
-                  href="/Emanuel-Domoos-Resume.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-sm ms-2 rounded-pill"
-                >
-                  View Resume
-                </a>
+<a
+  href="/Emanuel-Domoos-Resume.pdf"
+  download
+  className="btn btn-sm ms-2 rounded-pill"
+>
+  Download Resume
+</a>
+
               </div>
             </Col>
           </Row>
