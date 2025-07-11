@@ -330,7 +330,7 @@ const Portfolio = () => {
                 </p>
 
                 <a
-                  href="/Emanuel-Domoos-Resume.pdf"
+                  href="/Emanuel_Domoos_Resume.pdf"
                   download
                   className="btn btn-sm ms-2 rounded-pill"
                 >
