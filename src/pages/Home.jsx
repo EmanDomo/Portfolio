@@ -629,7 +629,7 @@ const Portfolio = () => {
                 <h3 className="project-title">Daily Digest</h3>
                 <div ref={project3DescRef} style={project3DescFadeStyle} className="project-description">
                   <p className="main-description">
-                    Originally built as a personal tool to monitor my own bowel movements, this poop tracker is now available to the public for anyone who wants to keep track of their bathroom habits.
+                    What began as a personal tool to track my bathroom habits has now been made available to help others monitor their digestive health and regularity.
                   </p>
                   <p className="mt-3 mb-1 fw-semibold tech-label">Technologies Used:</p>
                   <div className="project-tech">
